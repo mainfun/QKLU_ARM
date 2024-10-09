@@ -1,0 +1,5 @@
+add_test([=[TEST_ETREE.TEST_ETREE_CREATE]=]  /Users/mainf/CLionProjects/QKLU/bin/gtest [==[--gtest_filter=TEST_ETREE.TEST_ETREE_CREATE]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[TEST_ETREE.TEST_ETREE_CREATE]=]  PROPERTIES WORKING_DIRECTORY /Users/mainf/CLionProjects/QKLU/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[SparseMatrixTest.LoadMatrix]=]  /Users/mainf/CLionProjects/QKLU/bin/gtest [==[--gtest_filter=SparseMatrixTest.LoadMatrix]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[SparseMatrixTest.LoadMatrix]=]  PROPERTIES WORKING_DIRECTORY /Users/mainf/CLionProjects/QKLU/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+set(  gtest_TESTS TEST_ETREE.TEST_ETREE_CREATE SparseMatrixTest.LoadMatrix)

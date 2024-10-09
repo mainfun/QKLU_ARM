@@ -1,0 +1,5 @@
+if(EXISTS "/Users/mainf/CLionProjects/QKLU/cmake-build-debug/gtest[1]_tests.cmake")
+  include("/Users/mainf/CLionProjects/QKLU/cmake-build-debug/gtest[1]_tests.cmake")
+else()
+  add_test(gtest_NOT_BUILT gtest_NOT_BUILT)
+endif()

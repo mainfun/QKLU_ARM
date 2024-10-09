@@ -1,0 +1,81 @@
+cmake_minimum_required(VERSION 3.25)
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
+project(my_lu LANGUAGES C CXX)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set (CMAKE_BUILD_TYPE "Debug")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${CMAKE_SOURCE_DIR}/lib")
+
+include_directories(/usr/local/include)
+link_directories(/usr/local/lib)
+
+include_directories($ENV{HOME}/local/include)
+link_directories($ENV{HOME}/local/lib)
+
+include_directories(/home/wrq/local/include/suitesparse/)
+
+include_directories(src)
+include_directories(include)
+
+SET(MKL_ROOT "/home/wrq/intel/oneapi/mkl/2024.2")
+find_package(MKL CONFIG REQUIRED)
+if(MKL_FOUND)
+    message(STATUS "MKL found at ${MKL_INCLUDE_DIRS}")
+else()
+    message(FATAL_ERROR "MKL not found: please set MKLROOT.")
+endif()
+message(STATUS "${MKL_IMPORTED_TARGETS}")
+
+add_executable(my_test
+        src/pivoting.c
+        src/reorder.cpp
+        src/base/file.cpp
+        src/base/matrix.c
+        src/sort.c
+        src/base/vector_util.cpp
+        src/symbolic_analysis.cpp
+        src/numerical.c
+        #        test/up_looking.cpp
+        my_test/gessm.c
+        #        test/test01.c
+        #                test/test02.c
+        #        test/test03.c
+        #        test/test04.c
+        #        test/test05.c
+        #         test/test07.c
+#                        test/test08.c
+        #        test/test09.cpp
+        #        test/test12.cpp
+#                test/test16.cpp
+#        test/test18.c
+#        test/test_create_forest.c
+        # my_test/test_naive.cpp
+        my_test/test_mkl.cpp
+        src/base/forest.c
+        src/preprocess.c
+        src/solving.c
+        src/check.c
+        src/base/identify_chip.c
+#        google_test/test_gtest.cpp
+        #        test/test_factorization.c
+        #        test/test_upper_solver.c
+        #        test/test_lower_solver.c
+        #        test/test_preproccess.c
+        #        test/lx_b.c
+#        test/test17.c
+        #        test/test15.c
+#                test/test14.c
+        #        test/test13.c
+        #                test/test10.c
+#        test/test11.c
+)
+
+add_compile_options(-g -O0)
+target_link_libraries(my_test jpeg amd metis blas MKL::MKL)

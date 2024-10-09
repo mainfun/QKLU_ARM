@@ -1,0 +1,5 @@
+if(EXISTS "/tmp/QKLU/cmake-build-debug-docker/gtest[1]_tests.cmake")
+  include("/tmp/QKLU/cmake-build-debug-docker/gtest[1]_tests.cmake")
+else()
+  add_test(gtest_NOT_BUILT gtest_NOT_BUILT)
+endif()

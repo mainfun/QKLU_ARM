@@ -1,0 +1,5 @@
+if(EXISTS "/Users/mainf/CLionProjects/QKLU/cmake-build-debug/QKLU[1]_tests.cmake")
+  include("/Users/mainf/CLionProjects/QKLU/cmake-build-debug/QKLU[1]_tests.cmake")
+else()
+  add_test(QKLU_NOT_BUILT QKLU_NOT_BUILT)
+endif()
