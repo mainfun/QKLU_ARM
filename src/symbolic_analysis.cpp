@@ -36,7 +36,7 @@ void symbolic_calc_sym(SparseMatrix *matrix, PreprocessInfo *info) {
     LOG_INFO("symbolic calc elapsed time: %lf ms", ((double) (clock() - symbolic_calc_time)) / CLOCKS_PER_SEC * 1000.0);\
 }
 
-INDEX_TYPE binary_search(const INDEX_TYPE *array, INDEX_TYPE start, INDEX_TYPE end, INDEX_TYPE target) {
+INDEX_TYPE binary_search_l(const INDEX_TYPE *array, INDEX_TYPE start, INDEX_TYPE end, INDEX_TYPE target) {
     INDEX_TYPE mid;
     while (start <= end) {
         mid = start + (end - start) / 2;
@@ -51,6 +51,21 @@ INDEX_TYPE binary_search(const INDEX_TYPE *array, INDEX_TYPE start, INDEX_TYPE e
     return -1; // 表示未找到
 }
 
+int binary_search_i(const int *array, int start, int end, int target) {
+    int mid;
+    while (start <= end) {
+        mid = start + (end - start) / 2;
+        if (array[mid] == target)
+            return mid;
+        else if (array[mid] < target)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+    LOG_ERROR("without diag element!");
+    return -1; // 表示未找到
+}
+
 ///求对角元素索引
 void get_diag_index(SparseMatrix *A, PreprocessInfo *preprocess_info) {
     if (A->row_indices == nullptr || A->col_indices == nullptr ||
@@ -61,8 +76,8 @@ void get_diag_index(SparseMatrix *A, PreprocessInfo *preprocess_info) {
     auto *diag_index_csc = (INDEX_TYPE *) lu_malloc(A->num_col * sizeof(INDEX_TYPE));
     //#pragma omp parallel for
     for (INDEX_TYPE i = 0; i < A->num_row; i++) {
-        diag_index_csc[i] = binary_search(A->row_indices, A->col_pointers[i], A->col_pointers[i + 1] - 1, i);
-        diag_index_csr[i] = binary_search(A->col_indices, A->row_pointers[i], A->row_pointers[i + 1] - 1, i);
+        diag_index_csc[i] = binary_search_l(A->row_indices, A->col_pointers[i], A->col_pointers[i + 1] - 1, i);
+        diag_index_csr[i] = binary_search_l(A->col_indices, A->row_pointers[i], A->row_pointers[i + 1] - 1, i);
     }
     preprocess_info->diag_index_csc = diag_index_csc;
     preprocess_info->diag_index_csr = diag_index_csr;
@@ -73,7 +88,17 @@ INDEX_TYPE *get_diag_index_v2(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, INDEX_
     INDEX_TYPE *diag_index = (INDEX_TYPE *) lu_malloc(n * sizeof(INDEX_TYPE));
     //#pragma omp parallel for
     for (INDEX_TYPE i = 0; i < n; i++) {
-        diag_index[i] = binary_search(Ai, Ap[i], Ap[i + 1] - 1, i);
+        diag_index[i] = binary_search_l(Ai, Ap[i], Ap[i + 1] - 1, i);
+    }
+    return diag_index;
+}
+
+///求对角元素索引
+int *get_diag_index_i(const int *Ap, const int *Ai, int n) {
+    int *diag_index = (int *) lu_malloc(n * sizeof(int));
+    //#pragma omp parallel for
+    for (int i = 0; i < n; i++) {
+        diag_index[i] = binary_search_i(Ai, Ap[i], Ap[i + 1] - 1, i);
     }
     return diag_index;
 }
@@ -424,6 +449,58 @@ void csc2csr_pattern(SparseMatrix *m) {
     m->row_pointers[0] = 0;
 }
 
+void csr2csc_pattern_v2(const int *row_pointers, const int *col_indices,
+                        int *col_pointers, int *row_indices,
+                        int nnz, int n) {
+    // 计算每列的非零元素个数
+    for (int i = 0; i < nnz; i++) {
+        col_pointers[col_indices[i] + 1]++;
+    }
+    // 转换为列指针的累加形式
+    for (int i = 0; i < n; i++) {
+        col_pointers[i + 1] += col_pointers[i];
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = row_pointers[i]; j < row_pointers[i + 1]; j++) {
+            int col = col_indices[j];
+            int dst = col_pointers[col];
+            row_indices[dst] = i;
+            col_pointers[col]++;
+        }
+    }
+    // 修正列指针
+    for (int i = n; i > 0; i--) {
+        col_pointers[i] = col_pointers[i - 1];
+    }
+    col_pointers[0] = 0;
+}
+
+void csc2csr_pattern_v2(int *row_pointers, int *col_indices,
+                        const int *col_pointers, const int *row_indices,
+                        int nnz, int n) {
+    // 计算每列的非零元素个数
+    for (int i = 0; i < nnz; i++) {
+        row_pointers[row_indices[i] + 1]++;
+    }
+    // 转换为累加形式
+    for (int i = 0; i < n; i++) {
+        row_pointers[i + 1] += row_pointers[i];
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = col_pointers[i]; j < col_pointers[i + 1]; j++) {
+            int col = row_indices[j];
+            int dst = row_pointers[col];
+            col_indices[dst] = i;
+            row_pointers[col]++;
+        }
+    }
+    // 修正列指针
+    for (int i = n; i > 0; i--) {
+        row_pointers[i] = row_pointers[i - 1];
+    }
+    row_pointers[0] = 0;
+}
+
 /**
  * 方
  */
@@ -476,7 +553,7 @@ void csr2csc(SparseMatrix *m) {
             INDEX_TYPE dst = m->col_pointers[col];
             ELE_TYPE v = m->csr_values[j];
             m->row_indices[dst] = i;
-            m->csc_values[dst]=v;
+            m->csc_values[dst] = v;
             m->col_pointers[col]++;
         }
     }

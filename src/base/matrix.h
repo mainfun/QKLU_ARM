@@ -67,23 +67,6 @@ SparseMatrix *init_csc_matrix(INDEX_TYPE num_row, INDEX_TYPE num_col, INDEX_TYPE
  */
 void free_sparse_matrix(SparseMatrix *matrix);
 
-/**
- * 获取稀疏矩阵中分块的非零元个数
- * @param m 稀疏矩阵
- * @param block_width 块的列数
- * @param block_height 块的行数
- * @return
- */
-INDEX_TYPE *get_sub_matrices_nnz(SparseMatrix *m, INDEX_TYPE block_width, INDEX_TYPE block_height);
-
-/**
- * 矩阵二维均匀分块，零块是NULL，非零块依然是SparseMatrix类型
- * @param matrix 稀疏矩阵
- * @param block_width 块的列数
- * @param block_height 块的行数
- */
-void blocking_csr_matrix(SparseMatrix *matrix, INDEX_TYPE block_width, INDEX_TYPE block_height);
-
 void print_matrix_csr(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, INDEX_TYPE n);
 
 void print_matrix_csc(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, INDEX_TYPE n);

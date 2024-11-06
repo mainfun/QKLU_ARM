@@ -9,7 +9,6 @@ extern "C" {
 #include <stdlib.h>
 #include "base/malloc.h"
 #include "base/matrix.h"
-#include "base/forest.h"
 #include "preprocess.h"
 
 /**
@@ -35,6 +34,8 @@ void get_diag_index(SparseMatrix *A, PreprocessInfo *preprocess_info);
 
 INDEX_TYPE *get_diag_index_v2(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, INDEX_TYPE n);
 
+int *get_diag_index_i(const int *Ap, const int *Ai, int n);
+
 /**
  * 返回L的列结构
  * @param csr_mat CSR格式矩阵
@@ -53,6 +54,14 @@ void get_l_row_patterns(const SparseMatrix *csr_mat, PreprocessInfo *info);
 void csr2csc_pattern(SparseMatrix *m);
 
 void csc2csr_pattern(SparseMatrix *m);
+
+void csc2csr_pattern_v2(int *row_pointers, int *col_indices,
+                        const int *col_pointers, const int *row_indices,
+                        int nnz, int n);
+
+void csr2csc_pattern_v2(const int *row_pointers, const int *col_indices,
+                        int *col_pointers, int *row_indices,
+                        int nnz, int n);
 
 void csc2csr(SparseMatrix *m);
 

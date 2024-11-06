@@ -45,7 +45,7 @@ void adjust_csr(SparseMatrix *csr_matrix) {
         INDEX_TYPE row_end = csr_matrix->row_pointers[r + 1];
         INDEX_TYPE n = row_end - row_start;
         //todo 排序优化
-        bubbleSort(csr_matrix->col_indices + row_start, csr_matrix->csr_values + row_start, n);
+        sort_sparse_matrix(csr_matrix->col_indices + row_start, csr_matrix->csr_values + row_start, n);
     }
 }
 

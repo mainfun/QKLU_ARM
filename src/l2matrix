@@ -1,0 +1,325 @@
+//todo 超额分配，3块代码合并1块
+void csr2L2Matrix(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai,
+                  const SparseMatrix *csr, L2Matrix *l2, const int block_size) {
+    clock_t block_time = clock();
+    //---------------------get block nnz---------------------
+    const INDEX_TYPE n = csr->num_row;
+    const int block_height = block_size;
+    const int block_width = block_size;
+    int num_row_block = CEIL_DIV(n, block_height);
+    int num_col_block = CEIL_DIV(n, block_width);
+    LOG_DEBUG("num_row_block: %d, num_col_block: %d", num_row_block, num_col_block);
+
+    int *block_nnz_arr = (int *) lu_calloc(num_col_block * num_row_block, sizeof(int));
+    for (INDEX_TYPE i = 0; i < n; ++i) {
+        //i / block_height 是块的行号，Ai[j] / block_width是块的列号
+        INDEX_TYPE block_row_ptr = (i / block_height) * num_col_block;
+        for (INDEX_TYPE j = Ap[i]; j < Ap[i + 1]; ++j) {
+            block_nnz_arr[block_row_ptr + Ai[j] / block_width]++;
+        }
+    }
+    int block_count = 0;
+    for (int i = 0; i < num_row_block * num_col_block; ++i) {
+        if (block_nnz_arr[i] > 0) {
+            block_count++;
+        }
+    }
+    if (n < 10) {
+        LOG_DEBUG("block nnz: \n");
+        for (int i = 0; i < num_row_block; ++i) {
+            for (int j = 0; j < num_col_block; ++j) {
+                printf("%4d ", block_nnz_arr[i * num_col_block + j]);
+            }
+            printf("\n");
+        }
+    }
+    l2->num_row_block = num_row_block;
+    l2->num_col_block = num_col_block;
+    l2->block_width = block_width;
+    l2->block_height = block_height;
+    l2->block_count = block_count;
+    //--------------------end get block nnz--------------------
+    //分配BlockMatrix
+    BlockMatrix *block_matrices = (BlockMatrix *) lu_calloc(block_count, sizeof(BlockMatrix));
+    const int block_dense_size = block_height * block_width;
+    ELE_TYPE *values = (ELE_TYPE *) lu_calloc(block_dense_size * block_count, sizeof(ELE_TYPE));
+    for (int i = 0; i < block_count; i++) {
+        block_matrices[i].dense_values = &values[i * block_dense_size];
+    }
+    /**---------------分配L2Matrix---------------**/
+    BlockMatrix **block_matrices_ptr = (BlockMatrix **)
+            lu_malloc(sizeof(BlockMatrix *) * num_col_block * num_row_block);
+    // INDEX_TYPE num_row_remainder = csr->num_row % block_height;
+    // INDEX_TYPE num_col_remainder = csr->num_col % block_width;
+    // num_row_remainder = num_row_remainder ? num_row_remainder : block_height;
+    // num_col_remainder = num_col_remainder ? num_col_remainder : block_width;
+    int index = 0;
+    block_count = 0;
+    for (int i = 0; i < num_row_block; i++) {
+        for (int j = 0; j < num_col_block; ++j) {
+            if (block_nnz_arr[index] > 0) {
+                // int csr_num_row = i == num_row_block - 1 ? num_row_remainder : block_height;
+                // int csr_num_col = j == num_col_block - 1 ? num_col_remainder : block_width;
+                block_matrices_ptr[index] = &block_matrices[block_count++];
+                block_matrices_ptr[index]->row_pointers = (int *) lu_calloc(
+                    (block_height + 1), sizeof(int));
+                block_matrices_ptr[index]->col_indices = (int *) lu_malloc(
+                    block_nnz_arr[index] * sizeof(int));
+                // block_matrices_ptr[index]->col_pointers = (int *) lu_calloc(
+                //     (block_width + 1), sizeof(int));
+                // block_matrices_ptr[index]->row_indices = (int *) lu_malloc(
+                //     block_nnz_arr[index] * sizeof(int));
+
+                block_matrices_ptr[index]->nnz = 0;
+            } else {
+                block_matrices_ptr[index] = NULL;
+            }
+            index++;
+        }
+    }
+    lu_free(block_nnz_arr);
+    /**--------------end分配空间---------------**/
+    /**--------------计算非零索引---------------**/
+    for (INDEX_TYPE i = 0; i < n; i++) {
+        INDEX_TYPE row_block_idx = i / block_height;
+        for (INDEX_TYPE row_nz_idx = Ap[i]; row_nz_idx < Ap[i + 1]; row_nz_idx++) {
+            INDEX_TYPE col_idx = Ai[row_nz_idx];
+            INDEX_TYPE col_block_idx = col_idx / block_width;
+
+            // 获取该元素对应的子块矩阵
+            BlockMatrix *sub_matrix = block_matrices_ptr[row_block_idx * num_col_block + col_block_idx];
+
+            // 计算该子块中的行和列相对位置
+            int local_row = (int) (i % block_height);
+            int local_col = (int) (col_idx % block_width);
+
+            // 添加元素到子块中
+            sub_matrix->row_pointers[local_row + 1]++;
+            sub_matrix->col_indices[sub_matrix->nnz] = local_col;
+
+            // sub_matrix->col_pointers[local_col + 1]++;
+            // sub_matrix->row_indices[sub_matrix->nnz] = local_row;
+            sub_matrix->nnz++;
+            // if (n < 10) {
+            //     LOG_DEBUG("sub matrix(%ldx%ld): nnz=%ld, local_row=%ld, local_col=%ld",
+            //           row_block_idx, col_block_idx, sub_matrix->nnz, local_row, local_col);
+            // }
+        }
+    }
+    // 更新每个子块的行指针数组
+    for (int i = 0; i < l2->block_count; i++) {
+        const BlockMatrix sub_matrix = block_matrices[i];
+        for (int r = 1; r <= block_size; r++) {
+            sub_matrix.row_pointers[r] += sub_matrix.row_pointers[r - 1];
+            // sub_matrix.col_pointers[r] += sub_matrix.col_pointers[r - 1];
+        }
+        // if (n < 10) {
+        //     LOG_DEBUG("sub_matrix");
+        //     print_matrix_csr(sub_matrix.row_pointers, sub_matrix.col_indices, block_size);
+        // }
+    }
+    /**--------------end 计算非零索引---------------**/
+    // 遍历原始矩阵并填充子块
+    for (INDEX_TYPE i = 0; i < csr->num_row; i++) {
+        INDEX_TYPE row_block_idx = i / block_height;
+        for (INDEX_TYPE row_nz_idx = csr->row_pointers[i]; row_nz_idx < csr->row_pointers[i + 1]; row_nz_idx++) {
+            INDEX_TYPE col_idx = csr->col_indices[row_nz_idx];
+            INDEX_TYPE col_block_idx = col_idx / block_width;
+            // 获取该元素对应的子块矩阵
+            BlockMatrix *sub_matrix = block_matrices_ptr[row_block_idx * num_col_block + col_block_idx];
+            // 计算该子块中的行和列相对位置
+            INDEX_TYPE local_row = i % block_height;
+            INDEX_TYPE local_col = col_idx % block_width;
+            // 添加元素到子块中
+            sub_matrix->dense_values[local_row * block_width + local_col] = csr->csr_values[row_nz_idx];
+        }
+    }
+    l2->block_matrices = block_matrices_ptr;
+    //-----------------------块索引-----------------------
+    l2->row_pointers = (int *) lu_malloc((num_row_block + 1) * sizeof(int));
+    l2->col_indices = (int *) lu_malloc(block_count * sizeof(int));
+    l2->row_pointers[0] = 0;
+    int row_count = 0;
+    for (int i = 0; i < num_row_block; ++i) {
+        for (int j = 0; j < num_col_block; ++j) {
+            if (block_matrices_ptr[i * block_width + j] != NULL) {
+                l2->col_indices[row_count++] = j;
+            }
+        }
+        l2->row_pointers[i + 1] = row_count;
+    }
+    LOG_INFO("blocking elapsed time: %lf ms", ((double) (clock() - block_time)) / CLOCKS_PER_SEC * 1000.0);
+}
+
+void csr2L2Matrix2(const INDEX_TYPE *Lp, const INDEX_TYPE *Li, const INDEX_TYPE *Up, const INDEX_TYPE *Ui,
+                   const SparseMatrix *csr, L2Matrix *l2, const int block_size) {
+    clock_t block_time = clock();
+    //---------------------get block nnz---------------------
+    const INDEX_TYPE n = csr->num_row;
+    const int block_height = block_size;
+    const int block_width = block_size;
+    int num_row_block = CEIL_DIV(n, block_height);
+    int num_col_block = CEIL_DIV(n, block_width);
+    LOG_DEBUG("num_row_block: %d, num_col_block: %d", num_row_block, num_col_block);
+
+    int *block_nnz_arr = (int *) lu_calloc(num_col_block * num_row_block, sizeof(int));
+    for (INDEX_TYPE i = 0; i < n; ++i) {
+        //i / block_height 是块的行号，Ai[j] / block_width是块的列号
+        INDEX_TYPE block_row_ptr = (i / block_height) * num_col_block;
+        for (INDEX_TYPE j = Lp[i]; j < Lp[i + 1]; ++j) {
+            block_nnz_arr[block_row_ptr + Li[j] / block_width]++;
+        }
+        for (INDEX_TYPE j = Up[i]; j < Up[i + 1]; ++j) {
+            block_nnz_arr[block_row_ptr + Ui[j] / block_width]++;
+        }
+    }
+    int block_count = 0;
+    for (int i = 0; i < num_row_block * num_col_block; ++i) {
+        if (block_nnz_arr[i] > 0) {
+            block_count++;
+            //printf("%d ",block_nnz_arr[i]);
+        }
+    }
+    LOG_DEBUG("block_count: %d\n", block_count);
+    if (n < 10) {
+        LOG_DEBUG("block nnz: \n");
+        for (int i = 0; i < num_row_block; ++i) {
+            for (int j = 0; j < num_col_block; ++j) {
+                printf("%4d ", block_nnz_arr[i * num_col_block + j]);
+            }
+            printf("\n");
+        }
+    }
+    l2->num_row_block = num_row_block;
+    l2->num_col_block = num_col_block;
+    l2->block_width = block_width;
+    l2->block_height = block_height;
+    l2->block_count = block_count;
+    //--------------------end get block nnz--------------------
+    //分配BlockMatrix
+    BlockMatrix *block_matrices = (BlockMatrix *) lu_calloc(block_count, sizeof(BlockMatrix));
+    const int block_dense_size = block_height * block_width;
+    ELE_TYPE *values = (ELE_TYPE *) lu_calloc(block_dense_size * block_count, sizeof(ELE_TYPE));
+    for (int i = 0; i < block_count; i++) {
+        block_matrices[i].dense_values = &values[i * block_dense_size];
+    }
+    /**---------------分配L2Matrix---------------**/
+    BlockMatrix **block_matrices_ptr = (BlockMatrix **)
+            lu_malloc(sizeof(BlockMatrix *) * num_col_block * num_row_block);
+    // INDEX_TYPE num_row_remainder = csr->num_row % block_height;
+    // INDEX_TYPE num_col_remainder = csr->num_col % block_width;
+    // num_row_remainder = num_row_remainder ? num_row_remainder : block_height;
+    // num_col_remainder = num_col_remainder ? num_col_remainder : block_width;
+    int index = 0;
+    block_count = 0;
+    for (int i = 0; i < num_row_block; i++) {
+        for (int j = 0; j < num_col_block; ++j) {
+            if (block_nnz_arr[index] > 0) {
+                // int csr_num_row = i == num_row_block - 1 ? num_row_remainder : block_height;
+                // int csr_num_col = j == num_col_block - 1 ? num_col_remainder : block_width;
+                block_matrices_ptr[index] = &block_matrices[block_count++];
+                block_matrices_ptr[index]->row_pointers = (int *) lu_calloc(
+                    (block_height + 1), sizeof(int));
+                block_matrices_ptr[index]->col_indices = (int *) lu_malloc(
+                    block_nnz_arr[index] * sizeof(int));
+                // block_matrices_ptr[index]->col_pointers = (int *) lu_calloc(
+                //     (block_width + 1), sizeof(int));
+                // block_matrices_ptr[index]->row_indices = (int *) lu_malloc(
+                //     block_nnz_arr[index] * sizeof(int));
+
+                block_matrices_ptr[index]->nnz = 0;
+            } else {
+                block_matrices_ptr[index] = NULL;
+            }
+            index++;
+        }
+    }
+    lu_free(block_nnz_arr);
+    /**--------------end分配空间---------------**/
+    /**--------------计算非零索引---------------**/
+    for (INDEX_TYPE i = 0; i < n; i++) {
+        INDEX_TYPE row_block_idx = i / block_height;
+        int local_row = (int) (i % block_height);
+        for (INDEX_TYPE row_nz_idx = Lp[i]; row_nz_idx < Lp[i + 1]; row_nz_idx++) {
+            INDEX_TYPE col_idx = Li[row_nz_idx];
+            INDEX_TYPE col_block_idx = col_idx / block_width;
+            // 获取该元素对应的子块矩阵
+            BlockMatrix *sub_matrix = block_matrices_ptr[row_block_idx * num_col_block + col_block_idx];
+            // 计算该子块中的行和列相对位置
+            int local_col = (int) (col_idx % block_width);
+            // 添加元素到子块中
+            sub_matrix->row_pointers[local_row + 1]++;
+            sub_matrix->col_indices[sub_matrix->nnz] = local_col;
+            sub_matrix->nnz++;
+        }
+        for (INDEX_TYPE row_nz_idx = Up[i]; row_nz_idx < Up[i + 1]; row_nz_idx++) {
+            INDEX_TYPE col_idx = Ui[row_nz_idx];
+            INDEX_TYPE col_block_idx = col_idx / block_width;
+            // 获取该元素对应的子块矩阵
+            BlockMatrix *sub_matrix = block_matrices_ptr[row_block_idx * num_col_block + col_block_idx];
+            // 计算该子块中的行和列相对位置
+            int local_col = (int) (col_idx % block_width);
+            // 添加元素到子块中
+            sub_matrix->row_pointers[local_row + 1]++;
+            sub_matrix->col_indices[sub_matrix->nnz] = local_col;
+            sub_matrix->nnz++;
+        }
+    }
+    // 更新每个子块的行指针数组
+    for (int i = 0; i < l2->block_count; i++) {
+        const BlockMatrix sub_matrix = block_matrices[i];
+        for (int r = 1; r <= block_size; r++) {
+            sub_matrix.row_pointers[r] += sub_matrix.row_pointers[r - 1];
+        }
+    }
+    /**--------------end 计算非零索引---------------**/
+    // 遍历原始矩阵并填充子块
+    for (INDEX_TYPE i = 0; i < csr->num_row; i++) {
+        INDEX_TYPE row_block_idx = i / block_height;
+        for (INDEX_TYPE row_nz_idx = csr->row_pointers[i]; row_nz_idx < csr->row_pointers[i + 1]; row_nz_idx++) {
+            INDEX_TYPE col_idx = csr->col_indices[row_nz_idx];
+            INDEX_TYPE col_block_idx = col_idx / block_width;
+            // 获取该元素对应的子块矩阵
+            BlockMatrix *sub_matrix = block_matrices_ptr[row_block_idx * num_col_block + col_block_idx];
+            // 计算该子块中的行和列相对位置
+            INDEX_TYPE local_row = i % block_height;
+            INDEX_TYPE local_col = col_idx % block_width;
+            // 添加元素到子块中
+            sub_matrix->dense_values[local_row * block_width + local_col] = csr->csr_values[row_nz_idx];
+            //sub_matrix->csr_values[row_nz_idx] = csr->csr_values[row_nz_idx];
+        }
+    }
+    l2->block_matrices = block_matrices_ptr;
+    //-----------------------块索引-----------------------
+    l2->row_pointers = (int *) lu_malloc((num_row_block + 1) * sizeof(int));
+    l2->col_indices = (int *) lu_malloc(block_count * sizeof(int));
+    l2->row_pointers[0] = 0;
+    int row_count = 0;
+    for (int i = 0; i < num_row_block; ++i) {
+        for (int j = i + 1; j < num_col_block; ++j) {
+            if (block_matrices_ptr[i * block_width + j] != NULL) {
+                l2->col_indices[row_count++] = j;
+            }
+        }
+        l2->row_pointers[i + 1] = row_count;
+    }
+    l2->col_pointers = (int *) lu_malloc((num_col_block + 1) * sizeof(int));
+    l2->row_indices = (int *) lu_malloc(block_count * sizeof(int));
+    l2->col_pointers[0] = 0;
+    int col_count = 0;
+    for (int i = 0; i < num_col_block; ++i) {
+        for (int j = i + 1; j < num_row_block; ++j) {
+            if (block_matrices_ptr[j * block_width + i] != NULL) {
+                l2->col_indices[col_count++] = j;
+            }
+        }
+        l2->col_pointers[i + 1] = col_count;
+    }
+    //-----------------------对角索引-----------------------
+    for (int i = 0; i < block_height; ++i) {
+        l2->diag_index = get_diag_index_i(l2->block_matrices[i * num_row_block + i]->row_pointers,
+                                          l2->block_matrices[i * num_row_block + i]->col_indices,
+                                          l2->block_height);
+    }
+    LOG_INFO("blocking elapsed time: %lf ms", ((double) (clock() - block_time)) / CLOCKS_PER_SEC * 1000.0);
+}

@@ -14,13 +14,13 @@ ELE_TYPE check_solving(const SparseMatrix *A, ELE_TYPE x[], ELE_TYPE b[]) {
     vector_sub(y, b, r, n); //r=Ax-b
     ELE_TYPE l2 = l2_norm(r, n); //|| Ax - b ||
     ELE_TYPE result = l2 / l2_norm(b, n);
-    LOG_INFO("|| Ax - b || / || b || = %le", result);
+    LOG_INFO("|| Ax - b ||2 / || b ||2 = %le", result);
     lu_free(y);
     lu_free(r);
     return result;
 }
 
-double check_lower_solving(const SparseMatrix *L, const ELE_TYPE x[], ELE_TYPE b[]) {
+ELE_TYPE check_lower_solving(const SparseMatrix *L, const ELE_TYPE x[], ELE_TYPE b[]) {
     INDEX_TYPE n = L->num_row;
     ELE_TYPE *y = (ELE_TYPE *) lu_malloc(n * sizeof(ELE_TYPE));
     ELE_TYPE *r = (ELE_TYPE *) lu_malloc(n * sizeof(ELE_TYPE));
@@ -44,7 +44,7 @@ double check_lower_solving(const SparseMatrix *L, const ELE_TYPE x[], ELE_TYPE b
     return l2;
 }
 
-double check_upper_solving(const SparseMatrix *U, const ELE_TYPE x[], ELE_TYPE b[]) {
+ELE_TYPE check_upper_solving(const SparseMatrix *U, const ELE_TYPE x[], ELE_TYPE b[]) {
     INDEX_TYPE n = U->num_row;
     ELE_TYPE *y = (ELE_TYPE *) lu_malloc(n * sizeof(ELE_TYPE));
     ELE_TYPE *r = (ELE_TYPE *) lu_malloc(n * sizeof(ELE_TYPE));

@@ -35,7 +35,7 @@ void apply_permutation(const SparseMatrix *A, SparseMatrix *R, const INDEX_TYPE 
         }
         const INDEX_TYPE num = r_end - r_start;
         //todo 排序优化
-        bubbleSort(R->col_indices + r_start, R->csr_values + r_start, num);
+        sort_sparse_matrix(R->col_indices + r_start, R->csr_values + r_start, num);
     }
     LOG_INFO("AMD apply permutation elapsed time: %lf ms", ((double) (clock() - start_time)) / CLOCKS_PER_SEC * 1000.0);
 }

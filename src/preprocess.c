@@ -133,7 +133,7 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
     /**
      * 选主元 matrix->tmp_matrix
      */
-    // if (matrix->nnz < 100) { LOG_INFO("原矩阵:"), print_dense_matrix(csr2dense(matrix), matrix->num_row); }
+    if (matrix->nnz < 100) { LOG_INFO("原矩阵:"), print_dense_matrix(csr2dense(matrix), matrix->num_row); }
     SparseMatrix *tmp_matrix;
     if (is_static_pivoting) {
         INDEX_TYPE *perm = NULL;
@@ -165,7 +165,7 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
         //     printf("\n");
         // }
         if (matrix->nnz < 100) {
-            // LOG_INFO("pivoting values:"), print_dense_matrix(csr2dense(tmp_matrix), tmp_matrix->num_col);
+            LOG_INFO("pivoting values:"), print_dense_matrix(csr2dense(tmp_matrix), tmp_matrix->num_col);
         }
     } else {
         tmp_matrix = matrix;
@@ -182,8 +182,8 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
         if (is_static_pivoting) {
             free_sparse_matrix(tmp_matrix);
         }
-        // if (matrix->nnz < 100) { LOG_INFO("reorder:"), print_matrix_csr(A->row_pointers, A->col_indices, A->num_row); }
-        // if (matrix->nnz < 100) { LOG_INFO("reorder values:"), print_dense_matrix(csr2dense(A), A->num_row); }
+        if (matrix->nnz < 100) { LOG_INFO("reorder:"), print_matrix_csr(A->row_pointers, A->col_indices, A->num_row); }
+        if (matrix->nnz < 100) { LOG_INFO("reorder values:"), print_dense_matrix(csr2dense(A), A->num_row); }
     } else {
         A = tmp_matrix;
     }
@@ -197,11 +197,13 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
      * 符号计算
      */
     if (is_symbolic_calc) {
+        LOG_INFO("符号计算开始......");
+        clock_t symbolic_calc_time=clock();
         //symbolic_calc_sym(A, info);
         csr2csc_pattern(A);
         info->L = init_sparse_matrix(A->num_row, A->num_row, A->nnz);
         info->U = init_sparse_matrix(A->num_row, A->num_row, A->nnz);
-        //todo 反着来的
+        //反着来的
         fill_in_2_no_sort_pruneL(A->num_row, A->nnz, A->col_indices, A->row_pointers,
                                  &info->U->row_pointers, &info->U->col_indices,
                                  &info->L->row_pointers, &info->L->col_indices);
@@ -232,9 +234,10 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
         csr2csc_pattern(info->L);
         csr2csc_pattern(info->pattern);
         get_diag_index(info->pattern, info);
+        LOG_INFO("符号计算 elapsed time: %lf ms", ((double) (clock() - symbolic_calc_time)) / CLOCKS_PER_SEC * 1000.0);
     }
     if (matrix->nnz < 100) {
-        // LOG_INFO("L+U:"), print_matrix_csc(info->pattern->col_pointers, info->pattern->row_indices, A->num_row);
+        LOG_INFO("L+U:"), print_matrix_csc(info->pattern->col_pointers, info->pattern->row_indices, A->num_row);
     }
 
     // matrix->csr_values = A->csr_values;

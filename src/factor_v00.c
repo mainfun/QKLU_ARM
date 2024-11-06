@@ -4,8 +4,7 @@
 #include "base/matrix.h"
 #include "preprocess.h"
 
-#define THRESHOLD 1e-8
-//todo 增广矩阵
+// #define THRESHOLD 1e-8
 /**
  * LU分解的朴素实现(48ms~65ms)
  */
@@ -22,7 +21,7 @@ void factor(const SparseMatrix *A, ELE_TYPE *Lx, ELE_TYPE *Ux,
     for (INDEX_TYPE i = 0; i < n; ++i) {
         //枚举列
         ELE_TYPE pivot = D[i * n + i]; // diag value
-        if (fabs(pivot) < THRESHOLD) pivot = THRESHOLD;
+        //if (fabs(pivot) < THRESHOLD) pivot = THRESHOLD;
         D[i * n + i] = pivot;
         //#pragma omp parallel for num_threads(6)
         for (INDEX_TYPE p = Lp_start[i]; p < Lp_end[i]; p++) {

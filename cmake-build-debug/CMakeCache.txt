@@ -57,7 +57,16 @@ BLAS_flexiblas_LIBRARY:FILEPATH=BLAS_flexiblas_LIBRARY-NOTFOUND
 BLAS_goto2_LIBRARY:FILEPATH=BLAS_goto2_LIBRARY-NOTFOUND
 
 //Path to a library.
+BLAS_guide_LIBRARY:FILEPATH=BLAS_guide_LIBRARY-NOTFOUND
+
+//Path to a library.
+BLAS_iomp5_LIBRARY:FILEPATH=BLAS_iomp5_LIBRARY-NOTFOUND
+
+//Path to a library.
 BLAS_mkl_LIBRARY:FILEPATH=BLAS_mkl_LIBRARY-NOTFOUND
+
+//Path to a library.
+BLAS_mkl_core_LIBRARY:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_core.dylib
 
 //Path to a library.
 BLAS_mkl_em64t_LIBRARY:FILEPATH=BLAS_mkl_em64t_LIBRARY-NOTFOUND
@@ -69,10 +78,16 @@ BLAS_mkl_ia32_LIBRARY:FILEPATH=BLAS_mkl_ia32_LIBRARY-NOTFOUND
 BLAS_mkl_intel_LIBRARY:FILEPATH=BLAS_mkl_intel_LIBRARY-NOTFOUND
 
 //Path to a library.
-BLAS_mkl_intel_lp64_LIBRARY:FILEPATH=BLAS_mkl_intel_lp64_LIBRARY-NOTFOUND
+BLAS_mkl_intel_lp64_LIBRARY:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_intel_lp64.dylib
 
 //Path to a library.
-BLAS_mkl_rt_LIBRARY:FILEPATH=BLAS_mkl_rt_LIBRARY-NOTFOUND
+BLAS_mkl_intel_thread_LIBRARY:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.dylib
+
+//Path to a library.
+BLAS_mkl_rt_LIBRARY:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_rt.dylib
+
+//Path to a library.
+BLAS_mkl_sequential_LIBRARY:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_sequential.dylib
 
 //Path to a library.
 BLAS_openblas_LIBRARY:FILEPATH=BLAS_openblas_LIBRARY-NOTFOUND
@@ -418,6 +433,24 @@ MKL_THREADING:STRING=intel_thread
 //Path to a library.
 OMP_LIBRARY:FILEPATH=/opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib
 
+//The directory containing a CMake configuration file for OpenBLAS.
+OpenBLAS_DIR:PATH=/opt/homebrew/opt/openblas/lib/cmake/openblas
+
+//CXX compiler flags for OpenMP parallelization
+OpenMP_CXX_FLAGS:STRING=-fopenmp=libomp
+
+//CXX compiler libraries for OpenMP parallelization
+OpenMP_CXX_LIB_NAMES:STRING=omp
+
+//C compiler flags for OpenMP parallelization
+OpenMP_C_FLAGS:STRING=-fopenmp=libomp
+
+//C compiler libraries for OpenMP parallelization
+OpenMP_C_LIB_NAMES:STRING=omp
+
+//Path to the omp library for OpenMP
+OpenMP_omp_LIBRARY:FILEPATH=/opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib
+
 //Value Computed by CMake
 QKLU_BINARY_DIR:STATIC=/Users/mainf/CLionProjects/QKLU/cmake-build-debug
 
@@ -428,13 +461,13 @@ QKLU_IS_TOP_LEVEL:STATIC=ON
 QKLU_SOURCE_DIR:STATIC=/Users/mainf/CLionProjects/QKLU
 
 //Path to a library.
-mkl_core_file:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_core.dylib
+mkl_core_file:FILEPATH=/opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_core.dylib
 
 //Path to a library.
-mkl_intel_ilp64_file:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_intel_ilp64.dylib
+mkl_intel_ilp64_file:FILEPATH=/opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_ilp64.dylib
 
 //Path to a library.
-mkl_intel_thread_file:FILEPATH=/opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.dylib
+mkl_intel_thread_file:FILEPATH=/opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_thread.dylib
 
 
 ########################
@@ -471,8 +504,14 @@ BLAS_f77blas_LIBRARY-ADVANCED:INTERNAL=1
 BLAS_flexiblas_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_goto2_LIBRARY
 BLAS_goto2_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: BLAS_guide_LIBRARY
+BLAS_guide_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: BLAS_iomp5_LIBRARY
+BLAS_iomp5_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_mkl_LIBRARY
 BLAS_mkl_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: BLAS_mkl_core_LIBRARY
+BLAS_mkl_core_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_mkl_em64t_LIBRARY
 BLAS_mkl_em64t_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_mkl_ia32_LIBRARY
@@ -481,8 +520,16 @@ BLAS_mkl_ia32_LIBRARY-ADVANCED:INTERNAL=1
 BLAS_mkl_intel_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_mkl_intel_lp64_LIBRARY
 BLAS_mkl_intel_lp64_LIBRARY-ADVANCED:INTERNAL=1
+//Have function sgemm_
+BLAS_mkl_intel_lp64_deps_mkl_sequential_deps_mkl_core_deps_WORKS:INTERNAL=
+//ADVANCED property for variable: BLAS_mkl_intel_thread_LIBRARY
+BLAS_mkl_intel_thread_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_mkl_rt_LIBRARY
 BLAS_mkl_rt_LIBRARY-ADVANCED:INTERNAL=1
+//Have function sgemm_
+BLAS_mkl_rt_deps_WORKS:INTERNAL=
+//ADVANCED property for variable: BLAS_mkl_sequential_LIBRARY
+BLAS_mkl_sequential_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_openblas_LIBRARY
 BLAS_openblas_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_scs_LIBRARY
@@ -676,6 +723,12 @@ FIND_PACKAGE_MESSAGE_DETAILS_GTest:INTERNAL=[/opt/homebrew/lib/cmake/GTest/GTest
 FIND_PACKAGE_MESSAGE_DETAILS_JPEG:INTERNAL=[/opt/homebrew/lib/libjpeg.dylib][/opt/homebrew/include][v80()]
 //Details about finding MKL
 FIND_PACKAGE_MESSAGE_DETAILS_MKL:INTERNAL=[/opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib][/opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib][v()]
+//Details about finding OpenMP
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v5.1()]
+//Details about finding OpenMP_C
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-fopenmp=libomp][/opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib][v5.1()]
+//Details about finding OpenMP_CXX
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-fopenmp=libomp][/opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib][v5.1()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: JPEG_INCLUDE_DIR
@@ -684,4 +737,26 @@ JPEG_INCLUDE_DIR-ADVANCED:INTERNAL=1
 JPEG_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: JPEG_LIBRARY_RELEASE
 JPEG_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//Result of TRY_COMPILE
+OpenMP_COMPILE_RESULT_CXX_fopenmplibomp:INTERNAL=TRUE
+//Result of TRY_COMPILE
+OpenMP_COMPILE_RESULT_C_fopenmplibomp:INTERNAL=TRUE
+//ADVANCED property for variable: OpenMP_CXX_FLAGS
+OpenMP_CXX_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OpenMP_CXX_LIB_NAMES
+OpenMP_CXX_LIB_NAMES-ADVANCED:INTERNAL=1
+//CXX compiler's OpenMP specification date
+OpenMP_CXX_SPEC_DATE:INTERNAL=202011
+//ADVANCED property for variable: OpenMP_C_FLAGS
+OpenMP_C_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OpenMP_C_LIB_NAMES
+OpenMP_C_LIB_NAMES-ADVANCED:INTERNAL=1
+//C compiler's OpenMP specification date
+OpenMP_C_SPEC_DATE:INTERNAL=202011
+//Result of TRY_COMPILE
+OpenMP_SPECTEST_CXX_:INTERNAL=TRUE
+//Result of TRY_COMPILE
+OpenMP_SPECTEST_C_:INTERNAL=TRUE
+//ADVANCED property for variable: OpenMP_omp_LIBRARY
+OpenMP_omp_LIBRARY-ADVANCED:INTERNAL=1
 
