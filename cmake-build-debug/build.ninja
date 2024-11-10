@@ -51,127 +51,127 @@ build cmake_object_order_depends_target_QKLU: phony || .
 
 build CMakeFiles/QKLU.dir/main.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/main.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/main.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir
 
 build CMakeFiles/QKLU.dir/src/base/matrix.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/matrix.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/matrix.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/plot.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/plot.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/plot.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/file.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/file.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/file.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/vector_util.cpp.o: CXX_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/vector_util.cpp || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/vector_util.cpp.o.d
-  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/sort.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/sort.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/sort.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/identify_chip.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/identify_chip.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/identify_chip.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/forest.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/forest.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/forest.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/base/malloc.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/malloc.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/base/malloc.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src/base
 
 build CMakeFiles/QKLU.dir/src/pivoting.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/pivoting.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/pivoting.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/reorder.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/reorder.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/reorder.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/symbolic_analysis.cpp.o: CXX_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/symbolic_analysis.cpp || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/symbolic_analysis.cpp.o.d
-  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/preprocess.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/preprocess.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/preprocess.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/factor_v00.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/factor_v00.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/factor_v00.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/check.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/check.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/check.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/solving.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/solving.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/solving.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/layer_matrix.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/layer_matrix.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/layer_matrix.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
 build CMakeFiles/QKLU.dir/src/numerical.c.o: C_COMPILER__QKLU_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/numerical.c || cmake_object_order_depends_target_QKLU
   DEP_FILE = CMakeFiles/QKLU.dir/src/numerical.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -fopenmp=libomp -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/QKLU.dir
   OBJECT_FILE_DIR = CMakeFiles/QKLU.dir/src
 
@@ -183,9 +183,9 @@ build CMakeFiles/QKLU.dir/src/numerical.c.o: C_COMPILER__QKLU_unscanned_Debug /U
 #############################################
 # Link the executable /Users/mainf/CLionProjects/QKLU/bin/QKLU
 
-build /Users/mainf/CLionProjects/QKLU/bin/QKLU: CXX_EXECUTABLE_LINKER__QKLU_Debug CMakeFiles/QKLU.dir/main.c.o CMakeFiles/QKLU.dir/src/base/matrix.c.o CMakeFiles/QKLU.dir/src/base/plot.c.o CMakeFiles/QKLU.dir/src/base/file.c.o CMakeFiles/QKLU.dir/src/base/vector_util.cpp.o CMakeFiles/QKLU.dir/src/base/sort.c.o CMakeFiles/QKLU.dir/src/base/identify_chip.c.o CMakeFiles/QKLU.dir/src/base/forest.c.o CMakeFiles/QKLU.dir/src/base/malloc.c.o CMakeFiles/QKLU.dir/src/pivoting.c.o CMakeFiles/QKLU.dir/src/reorder.c.o CMakeFiles/QKLU.dir/src/symbolic_analysis.cpp.o CMakeFiles/QKLU.dir/src/preprocess.c.o CMakeFiles/QKLU.dir/src/factor_v00.c.o CMakeFiles/QKLU.dir/src/check.c.o CMakeFiles/QKLU.dir/src/solving.c.o CMakeFiles/QKLU.dir/src/layer_matrix.c.o CMakeFiles/QKLU.dir/src/numerical.c.o | /opt/homebrew/lib/libjpeg.dylib /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib /opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_ilp64.dylib /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_thread.dylib /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_core.dylib /opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib
+build /Users/mainf/CLionProjects/QKLU/bin/QKLU: CXX_EXECUTABLE_LINKER__QKLU_Debug CMakeFiles/QKLU.dir/main.c.o CMakeFiles/QKLU.dir/src/base/matrix.c.o CMakeFiles/QKLU.dir/src/base/plot.c.o CMakeFiles/QKLU.dir/src/base/file.c.o CMakeFiles/QKLU.dir/src/base/vector_util.cpp.o CMakeFiles/QKLU.dir/src/base/sort.c.o CMakeFiles/QKLU.dir/src/base/identify_chip.c.o CMakeFiles/QKLU.dir/src/base/forest.c.o CMakeFiles/QKLU.dir/src/base/malloc.c.o CMakeFiles/QKLU.dir/src/pivoting.c.o CMakeFiles/QKLU.dir/src/reorder.c.o CMakeFiles/QKLU.dir/src/symbolic_analysis.cpp.o CMakeFiles/QKLU.dir/src/preprocess.c.o CMakeFiles/QKLU.dir/src/factor_v00.c.o CMakeFiles/QKLU.dir/src/check.c.o CMakeFiles/QKLU.dir/src/solving.c.o CMakeFiles/QKLU.dir/src/layer_matrix.c.o CMakeFiles/QKLU.dir/src/numerical.c.o | /opt/homebrew/lib/libjpeg.dylib /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib /opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib
   FLAGS = -g -fsanitize=address -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4
-  LINK_LIBRARIES = -Wl,-rpath,/opt/intel/oneapi/mkl/2023.2.2/lib -Wl,-rpath,/opt/intel/oneapi/compiler/latest/mac/compiler/lib  /opt/homebrew/lib/libjpeg.dylib  /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib  /opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib  /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_ilp64.dylib  /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_thread.dylib  /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_core.dylib  /opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib  -lm  -ldl  -lpthread
+  LINK_LIBRARIES = /opt/homebrew/lib/libjpeg.dylib  /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib  /opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib
   OBJECT_DIR = CMakeFiles/QKLU.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -203,127 +203,127 @@ build cmake_object_order_depends_target_gtest: phony || .
 
 build CMakeFiles/gtest.dir/src/base/matrix.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/matrix.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/matrix.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/plot.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/plot.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/plot.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/file.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/file.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/file.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/vector_util.cpp.o: CXX_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/vector_util.cpp || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/vector_util.cpp.o.d
-  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/sort.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/sort.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/sort.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/identify_chip.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/identify_chip.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/identify_chip.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/forest.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/forest.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/forest.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/base/malloc.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/base/malloc.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/base/malloc.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src/base
 
 build CMakeFiles/gtest.dir/src/pivoting.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/pivoting.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/pivoting.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/reorder.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/reorder.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/reorder.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/symbolic_analysis.cpp.o: CXX_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/symbolic_analysis.cpp || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/symbolic_analysis.cpp.o.d
-  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -fsanitize=address -g -std=gnu++11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/preprocess.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/preprocess.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/preprocess.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/factor_v02.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/factor_v02.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/factor_v02.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/check.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/check.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/check.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/solving.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/solving.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/solving.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/src/layer_matrix.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/layer_matrix.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/layer_matrix.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
 build CMakeFiles/gtest.dir/test/test_L2mtriax.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/test/test_L2mtriax.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/test/test_L2mtriax.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/test
 
 build CMakeFiles/gtest.dir/src/numerical.c.o: C_COMPILER__gtest_unscanned_Debug /Users/mainf/CLionProjects/QKLU/src/numerical.c || cmake_object_order_depends_target_gtest
   DEP_FILE = CMakeFiles/gtest.dir/src/numerical.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3 -DMKL_ILP64
-  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include -isystem /opt/intel/oneapi/mkl/2023.2.2/include
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3 -fopenmp=libomp
+  INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
   OBJECT_DIR = CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = CMakeFiles/gtest.dir/src
 
@@ -335,9 +335,9 @@ build CMakeFiles/gtest.dir/src/numerical.c.o: C_COMPILER__gtest_unscanned_Debug 
 #############################################
 # Link the executable /Users/mainf/CLionProjects/QKLU/bin/gtest
 
-build /Users/mainf/CLionProjects/QKLU/bin/gtest: CXX_EXECUTABLE_LINKER__gtest_Debug CMakeFiles/gtest.dir/src/base/matrix.c.o CMakeFiles/gtest.dir/src/base/plot.c.o CMakeFiles/gtest.dir/src/base/file.c.o CMakeFiles/gtest.dir/src/base/vector_util.cpp.o CMakeFiles/gtest.dir/src/base/sort.c.o CMakeFiles/gtest.dir/src/base/identify_chip.c.o CMakeFiles/gtest.dir/src/base/forest.c.o CMakeFiles/gtest.dir/src/base/malloc.c.o CMakeFiles/gtest.dir/src/pivoting.c.o CMakeFiles/gtest.dir/src/reorder.c.o CMakeFiles/gtest.dir/src/symbolic_analysis.cpp.o CMakeFiles/gtest.dir/src/preprocess.c.o CMakeFiles/gtest.dir/src/factor_v02.c.o CMakeFiles/gtest.dir/src/check.c.o CMakeFiles/gtest.dir/src/solving.c.o CMakeFiles/gtest.dir/src/layer_matrix.c.o CMakeFiles/gtest.dir/test/test_L2mtriax.c.o CMakeFiles/gtest.dir/src/numerical.c.o | /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib /opt/homebrew/lib/libjpeg.dylib /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_ilp64.dylib /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_thread.dylib /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_core.dylib /opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib
+build /Users/mainf/CLionProjects/QKLU/bin/gtest: CXX_EXECUTABLE_LINKER__gtest_Debug CMakeFiles/gtest.dir/src/base/matrix.c.o CMakeFiles/gtest.dir/src/base/plot.c.o CMakeFiles/gtest.dir/src/base/file.c.o CMakeFiles/gtest.dir/src/base/vector_util.cpp.o CMakeFiles/gtest.dir/src/base/sort.c.o CMakeFiles/gtest.dir/src/base/identify_chip.c.o CMakeFiles/gtest.dir/src/base/forest.c.o CMakeFiles/gtest.dir/src/base/malloc.c.o CMakeFiles/gtest.dir/src/pivoting.c.o CMakeFiles/gtest.dir/src/reorder.c.o CMakeFiles/gtest.dir/src/symbolic_analysis.cpp.o CMakeFiles/gtest.dir/src/preprocess.c.o CMakeFiles/gtest.dir/src/factor_v02.c.o CMakeFiles/gtest.dir/src/check.c.o CMakeFiles/gtest.dir/src/solving.c.o CMakeFiles/gtest.dir/src/layer_matrix.c.o CMakeFiles/gtest.dir/test/test_L2mtriax.c.o CMakeFiles/gtest.dir/src/numerical.c.o | /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib /opt/homebrew/lib/libjpeg.dylib /opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib
   FLAGS = -g -fsanitize=address -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4
-  LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/opt/openblas/lib -Wl,-rpath,/opt/intel/oneapi/mkl/2023.2.2/lib -Wl,-rpath,/opt/intel/oneapi/compiler/latest/mac/compiler/lib  /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib  /opt/homebrew/lib/libjpeg.dylib  -lOpenBLAS  /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_ilp64.dylib  /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_thread.dylib  /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_core.dylib  /opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib  -lm  -ldl  -lpthread
+  LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/opt/openblas/lib  /opt/homebrew/Cellar/suite-sparse/7.7.0/lib/libamd.dylib  /opt/homebrew/lib/libjpeg.dylib  -lOpenBLAS  /opt/homebrew/Cellar/llvm/17.0.6_1/lib/libomp.dylib
   LINK_PATH = -L/opt/homebrew/opt/openblas/lib
   OBJECT_DIR = CMakeFiles/gtest.dir
   POST_BUILD = :
@@ -346,37 +346,37 @@ build /Users/mainf/CLionProjects/QKLU/bin/gtest: CXX_EXECUTABLE_LINKER__gtest_De
   TARGET_PDB = gtest.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target read_csc
+# Object build statements for EXECUTABLE target test_remove_idx
 
 
 #############################################
-# Order-only phony target for read_csc
+# Order-only phony target for test_remove_idx
 
-build cmake_object_order_depends_target_read_csc: phony || .
+build cmake_object_order_depends_target_test_remove_idx: phony || .
 
-build CMakeFiles/read_csc.dir/test/read_csc.c.o: C_COMPILER__read_csc_unscanned_Debug /Users/mainf/CLionProjects/QKLU/test/read_csc.c || cmake_object_order_depends_target_read_csc
-  DEP_FILE = CMakeFiles/read_csc.dir/test/read_csc.c.o.d
-  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -O3
+build CMakeFiles/test_remove_idx.dir/test/test_remove_idx.c.o: C_COMPILER__test_remove_idx_unscanned_Debug /Users/mainf/CLionProjects/QKLU/test/test_remove_idx.c || cmake_object_order_depends_target_test_remove_idx
+  DEP_FILE = CMakeFiles/test_remove_idx.dir/test/test_remove_idx.c.o.d
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -fcolor-diagnostics -g -Wall -fopenmp -O3
   INCLUDES = -I/Users/mainf/CLionProjects/QKLU/src -I/Users/mainf/CLionProjects/QKLU/include -I/opt/homebrew/include -I/usr/include/suitesparse -I/opt/homebrew/Cellar/suite-sparse/7.7.0/include/suitesparse -I/opt/homebrew/opt/openblas/include
-  OBJECT_DIR = CMakeFiles/read_csc.dir
-  OBJECT_FILE_DIR = CMakeFiles/read_csc.dir/test
+  OBJECT_DIR = CMakeFiles/test_remove_idx.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_remove_idx.dir/test
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target read_csc
+# Link build statements for EXECUTABLE target test_remove_idx
 
 
 #############################################
-# Link the executable /Users/mainf/CLionProjects/QKLU/bin/read_csc
+# Link the executable /Users/mainf/CLionProjects/QKLU/bin/test_remove_idx
 
-build /Users/mainf/CLionProjects/QKLU/bin/read_csc: C_EXECUTABLE_LINKER__read_csc_Debug CMakeFiles/read_csc.dir/test/read_csc.c.o
+build /Users/mainf/CLionProjects/QKLU/bin/test_remove_idx: C_EXECUTABLE_LINKER__test_remove_idx_Debug CMakeFiles/test_remove_idx.dir/test/test_remove_idx.c.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4
   LINK_PATH = -L/opt/homebrew/opt/openblas/lib
-  OBJECT_DIR = CMakeFiles/read_csc.dir
+  OBJECT_DIR = CMakeFiles/test_remove_idx.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = /Users/mainf/CLionProjects/QKLU/bin/read_csc
-  TARGET_PDB = read_csc.dbg
+  TARGET_FILE = /Users/mainf/CLionProjects/QKLU/bin/test_remove_idx
+  TARGET_PDB = test_remove_idx.dbg
 
 
 #############################################
@@ -408,7 +408,7 @@ build QKLU: phony /Users/mainf/CLionProjects/QKLU/bin/QKLU
 
 build gtest: phony /Users/mainf/CLionProjects/QKLU/bin/gtest
 
-build read_csc: phony /Users/mainf/CLionProjects/QKLU/bin/read_csc
+build test_remove_idx: phony /Users/mainf/CLionProjects/QKLU/bin/test_remove_idx
 
 # =============================================================================
 # Folder targets.
@@ -418,7 +418,7 @@ build read_csc: phony /Users/mainf/CLionProjects/QKLU/bin/read_csc
 #############################################
 # Folder: /Users/mainf/CLionProjects/QKLU/cmake-build-debug
 
-build all: phony /Users/mainf/CLionProjects/QKLU/bin/QKLU /Users/mainf/CLionProjects/QKLU/bin/gtest /Users/mainf/CLionProjects/QKLU/bin/read_csc
+build all: phony /Users/mainf/CLionProjects/QKLU/bin/QKLU /Users/mainf/CLionProjects/QKLU/bin/gtest /Users/mainf/CLionProjects/QKLU/bin/test_remove_idx
 
 # =============================================================================
 # Built-in targets
@@ -427,14 +427,14 @@ build all: phony /Users/mainf/CLionProjects/QKLU/bin/QKLU /Users/mainf/CLionProj
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJPEG.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindOpenMP.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/SelectLibraryConfigurations.cmake /Users/mainf/CLionProjects/QKLU/CMakeLists.txt /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfig.cmake /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfigVersion.cmake /opt/intel/oneapi/mkl/latest/lib/cmake/mkl/MKLConfig.cmake /opt/intel/oneapi/mkl/latest/lib/cmake/mkl/MKLConfigVersion.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJPEG.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindOpenMP.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/SelectLibraryConfigurations.cmake /Users/mainf/CLionProjects/QKLU/CMakeLists.txt /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfig.cmake /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfigVersion.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJPEG.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindOpenMP.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/SelectLibraryConfigurations.cmake /Users/mainf/CLionProjects/QKLU/CMakeLists.txt /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfig.cmake /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfigVersion.cmake /opt/intel/oneapi/mkl/latest/lib/cmake/mkl/MKLConfig.cmake /opt/intel/oneapi/mkl/latest/lib/cmake/mkl/MKLConfigVersion.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
+build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJPEG.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindOpenMP.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/SelectLibraryConfigurations.cmake /Users/mainf/CLionProjects/QKLU/CMakeLists.txt /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfig.cmake /opt/homebrew/opt/openblas/lib/cmake/openblas/OpenBLASConfigVersion.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
 
 
 #############################################

@@ -75,7 +75,7 @@ void lower_solver_block_v2(const L2Matrix *l2, ELE_TYPE *x, const ELE_TYPE *b) {
             const int block_col_idx = l2->col_indices[j];
             const BlockMatrix *bm = get_block(l2, i, block_col_idx);
             //块内CSR
-            if (bm->format == SPARSE) {
+            if (bm->format == SPARSE || bm->format == DENSE) {
                 for (int c = 0; c < n; ++c) {
                     INDEX_TYPE big_col = (INDEX_TYPE) block_col_idx * n + c;
                     INDEX_TYPE big_ow = (INDEX_TYPE) i * n; //big_row = big_ow + r
@@ -114,7 +114,7 @@ void upper_solver_block(const L2Matrix *l2, ELE_TYPE *x, const ELE_TYPE *b) {
         for (int j = l2->diag_index[i] + 1; j < l2->row_pointers[i + 1]; j++) {
             const int block_col_idx = l2->col_indices[j];
             const BlockMatrix *bm = get_block(l2, i, block_col_idx);
-            if (bm->format == SPARSE) {
+            if (bm->format == SPARSE || bm->format == DENSE) {
                 //SPMV
                 for (int ii = 0; ii < l2->block_width; ++ii) {
                     INDEX_TYPE big_row = (INDEX_TYPE) i * n + ii;
@@ -129,7 +129,7 @@ void upper_solver_block(const L2Matrix *l2, ELE_TYPE *x, const ELE_TYPE *b) {
         }
         //解对角块
         BlockMatrix *bm = get_diag_block(l2, i);
-        if (bm->format == SPARSE) {
+        if (bm->format == SPARSE || bm->format == DENSE) {
             const int block_col_idx = i;
             for (int ii = n - 1; ii >= 0; --ii) {
                 INDEX_TYPE big_row = (INDEX_TYPE) i * n + ii;

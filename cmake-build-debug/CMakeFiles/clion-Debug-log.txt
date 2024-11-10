@@ -1,15 +1,4 @@
 /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -DCMAKE_C_COMPILER=/opt/homebrew/opt/llvm/bin/clang -DCMAKE_CXX_COMPILER=/opt/homebrew/opt/llvm/bin/clang++ -G Ninja -S /Users/mainf/CLionProjects/QKLU -B /Users/mainf/CLionProjects/QKLU/cmake-build-debug
--- MKL_ARCH: intel64
--- MKL_ROOT /opt/intel/oneapi/mkl/2023.2.2
--- MKL_LINK: dynamic
--- MKL_INTERFACE_FULL: intel_ilp64
--- MKL_THREADING: intel_thread
--- Found MKL: /opt/intel/oneapi/mkl/2023.2.2
--- Found MKL: /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_ilp64.dylib
--- Found MKL: /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_intel_thread.dylib
--- Found MKL: /opt/intel/oneapi/mkl/2023.2.2/lib/libmkl_core.dylib
--- Found MKL: /opt/intel/oneapi/compiler/latest/mac/compiler/lib/libiomp5.dylib
--- MKL::mkl_intel_ilp64;MKL::mkl_intel_thread;MKL::mkl_core;MKL::MKL
--- Configuring done (0.1s)
+-- Configuring done (0.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: /Users/mainf/CLionProjects/QKLU/cmake-build-debug

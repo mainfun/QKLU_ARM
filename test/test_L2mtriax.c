@@ -13,6 +13,7 @@
 int main() {
     SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/tmt_unsym.mtx", false);
     // SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/onetone1.mtx", false);
+    // SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/k3plates.mtx", false);
     // SparseMatrix *original_matrix = load_matrix_csr("../res/test02.mtx", false);
     const INDEX_TYPE n = original_matrix->num_row;
     PreprocessInfo *info = init_preprocess_info();

@@ -6,7 +6,7 @@
 #include <symbolic_analysis.h>
 #include <base/base_math.h>
 
-#define DENSE_THRESHOLD (1.0 * BLOCK_SIDE * BLOCK_SIDE)
+#define DENSE_THRESHOLD (0.5 * BLOCK_SIDE * BLOCK_SIDE)
 
 BlockMatrix *init_BlockMatrix() {
     BlockMatrix *sub_matrix = (BlockMatrix *) lu_calloc(1, sizeof(BlockMatrix));
@@ -40,6 +40,7 @@ BlockMatrix *get_block(const L2Matrix *l2, const int i, const int j) {
 }
 
 void print_csr(BlockMatrix *mat, int n, int d_size) {
+    printf("%s\n", mat->format==SPARSE?"SPARSE":"DENSE");
     printf("%d x %d\n", mat->num_row, mat->num_col);
     printf("Row ptr: ");
     for (int i = 0; i <= n; i++) {
@@ -64,6 +65,7 @@ void print_csr(BlockMatrix *mat, int n, int d_size) {
 }
 
 void print_csc(BlockMatrix *mat, int n, int d_size) {
+    printf("%s\n", mat->format==SPARSE?"SPARSE":"DENSE");
     printf("%d x %d\n", mat->num_row, mat->num_col);
     printf("Col ptr: ");
     for (int i = 0; i <= n; i++) {
@@ -92,12 +94,12 @@ void print_block(L2Matrix *mat) {
         for (int j = 0; j < mat->num_col_block; j++) {
             printf("\nSubmatrix (%d, %d):\n", i, j);
             BlockMatrix *bm = mat->block_matrices[i * mat->num_col_block + j];
-            if (bm->format == SPARSE) {
+            //if (bm->format == SPARSE) {
                 if (i >= j)
                     print_csc(bm, mat->block_width, bm->d_size);
                 if (i <= j)
                     print_csr(bm, mat->block_width, bm->d_size);
-            }
+            //}
         }
     }
 }
@@ -152,6 +154,16 @@ int *get_offset_diag(const int *row_ptr_l, const int *col_idx_l,
         }
     }
     return offset;
+}
+
+//symbolic_blocking A
+//calc offset for each block
+//numerical_blocking A
+void symbolic_blocking(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai,
+                       L2Matrix *l2, const int BLOCK_SIDE, INDEX_TYPE n) {
+}
+
+void numerical_blocking() {
 }
 
 void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
@@ -256,11 +268,10 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             // 计算该子块中的行和列相对位置
             int local_col = (int) (col_idx % block_width);
             // 添加元素到子块中
-            if (bm->format == SPARSE) {
-                csr_l_ptr[INDEX]->row_pointers[local_row + 1]++;
-                csr_l_ptr[INDEX]->col_indices[csr_l_ptr[INDEX]->nnz] = local_col;
-                csr_l_ptr[INDEX]->nnz++;
-            }
+
+            csr_l_ptr[INDEX]->row_pointers[local_row + 1]++;
+            csr_l_ptr[INDEX]->col_indices[csr_l_ptr[INDEX]->nnz] = local_col;
+            csr_l_ptr[INDEX]->nnz++;
         }
         for (INDEX_TYPE row_nz_idx = Up[i]; row_nz_idx < Up[i + 1]; row_nz_idx++) {
             INDEX_TYPE col_idx = Ui[row_nz_idx];
@@ -269,11 +280,10 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             // 计算该子块中的行和列相对位置
             int local_col = (int) (col_idx % block_width);
             // 添加元素到子块中
-            if (bm->format == SPARSE) {
-                bm->row_pointers[local_row + 1]++;
-                bm->col_indices[bm->u_nnz] = local_col;
-                bm->u_nnz++;
-            }
+
+            bm->row_pointers[local_row + 1]++;
+            bm->col_indices[bm->u_nnz] = local_col;
+            bm->u_nnz++;
         }
     }
     long long sum_d_size = 0;
@@ -282,51 +292,63 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
         for (int j = 0; j < num_col_block; ++j) {
             BlockMatrix *bm = block_matrices_ptr[i * num_col_block + j];
             if (bm == NULL) continue;
-            if (bm->format == SPARSE) {
-                int d_size = 0;
-                const temp_csr_l *t = csr_l_ptr[i * num_col_block + j];
-                //L
-                if (i > j) {
-                    for (int r = 1; r <= BLOCK_SIDE; r++) {
-                        t->row_pointers[r] += t->row_pointers[r - 1];
-                    }
-                    bm->l_nnz = t->nnz;
-                    csr2csc_pattern_v2(t->row_pointers, t->col_indices,
-                                       bm->col_pointers, bm->row_indices, t->nnz, BLOCK_SIDE);
+
+            int d_size = 0;
+            const temp_csr_l *t = csr_l_ptr[i * num_col_block + j];
+            //L
+            if (i > j) {
+                for (int r = 1; r <= BLOCK_SIDE; r++) {
+                    t->row_pointers[r] += t->row_pointers[r - 1];
+                }
+                bm->l_nnz = t->nnz;
+                csr2csc_pattern_v2(t->row_pointers, t->col_indices,
+                                   bm->col_pointers, bm->row_indices, t->nnz, BLOCK_SIDE);
+                if (bm->format == SPARSE)
                     bm->offset = get_offset(t->row_pointers, t->col_indices, BLOCK_SIDE, &d_size);
+            }
+            //U
+            if (i < j) {
+                for (int r = 1; r <= BLOCK_SIDE; r++) {
+                    bm->row_pointers[r] += bm->row_pointers[r - 1];
                 }
-                //U
-                if (i < j) {
-                    for (int r = 1; r <= BLOCK_SIDE; r++) {
-                        bm->row_pointers[r] += bm->row_pointers[r - 1];
-                    }
+                if (bm->format == SPARSE)
                     bm->offset = get_offset(bm->row_pointers, bm->col_indices, BLOCK_SIDE, &d_size);
+            }
+            //对角
+            if (i == j) {
+                bm->l_nnz = t->nnz;
+                for (int r = 1; r <= BLOCK_SIDE; r++) {
+                    t->row_pointers[r] += t->row_pointers[r - 1];
+                    bm->row_pointers[r] += bm->row_pointers[r - 1];
                 }
-                //对角
-                if (i == j) {
-                    bm->l_nnz = t->nnz;
-                    for (int r = 1; r <= BLOCK_SIDE; r++) {
-                        t->row_pointers[r] += t->row_pointers[r - 1];
-                        bm->row_pointers[r] += bm->row_pointers[r - 1];
-                    }
-                    csr2csc_pattern_v2(t->row_pointers, t->col_indices,
-                                       bm->col_pointers, bm->row_indices, t->nnz, BLOCK_SIDE);
+                csr2csc_pattern_v2(t->row_pointers, t->col_indices,
+                                   bm->col_pointers, bm->row_indices, t->nnz, BLOCK_SIDE);
+                if (bm->format == SPARSE)
                     bm->offset = get_offset_diag(t->row_pointers, t->col_indices,
                                                  bm->row_pointers, bm->col_indices,
                                                  BLOCK_SIDE, &d_size);
-                    // d_size = BLOCK_SIDE * BLOCK_SIDE;
-                    // bm->offset = lu_calloc(BLOCK_SIDE * BLOCK_SIDE, sizeof(int));
-                }
-                //printf("(%d,%d) ", d_size,block_nnz_arr[i*num_row_block+j]);
+                // d_size = BLOCK_SIDE * BLOCK_SIDE;
+                // bm->offset = lu_calloc(BLOCK_SIDE * BLOCK_SIDE, sizeof(int));
+            }
+            //printf("(%d,%d) ", d_size,block_nnz_arr[i*num_row_block+j]);
+            if (bm->format == SPARSE) {
                 sum_d_size += d_size;
                 bm->d_size = d_size;
-            } else {
-                //稠密结构
+            }
+
+            if (bm->format == DENSE) { //稠密结构
+                int *offset = (int *) lu_malloc(BLOCK_SIDE * sizeof(int));
+                for (int k = 0; k < BLOCK_SIDE; ++k) {
+                    offset[k] = k * BLOCK_SIDE;
+                }
+                bm->offset = offset;
                 sum_d_size += BLOCK_SIDE * BLOCK_SIDE;
                 bm->d_size = BLOCK_SIDE * BLOCK_SIDE;
             }
         }
     }
+    block_matrices_ptr[18731 * num_row_block + 18731]->d_size = 1000;
+    sum_d_size += 2000;
     LOG_INFO("\n the values size = %lld MB. (sum_d_size=%lld)", sum_d_size / 1024 / 1024 * 8, sum_d_size);
     if (sum_d_size <= 0) {
         LOG_ERROR("sum_d_size<=0");
@@ -357,6 +379,9 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
         for (int j = l2->row_pointers[i]; j < l2->row_pointers[i + 1]; ++j) {
             BlockMatrix *bm = block_matrices_ptr[i * num_row_block + l2->col_indices[j]];
             if (bm != NULL) {
+                if (bm->d_size < 0) {
+                    LOG_DEBUG("bm->d_size<0 at (%d,%d)", i, l2->col_indices[j]);
+                }
                 bm->values = &values[values_index];
                 values_index += bm->d_size;
             }
@@ -374,11 +399,11 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             INDEX_TYPE local_row = i % block_height;
             INDEX_TYPE local_col = col_idx % block_width;
             // 添加元素到子块中
-            if (sub_matrix->format == SPARSE) {
-                sub_matrix->values[sub_matrix->offset[local_row] + local_col] = Ax[row_nz_idx];
-            } else {
-                sub_matrix->values[local_row * block_width + local_col] = Ax[row_nz_idx];
-            }
+            //if (sub_matrix->format == SPARSE) {
+            sub_matrix->values[sub_matrix->offset[local_row] + local_col] = Ax[row_nz_idx];
+            // } else {
+            //     sub_matrix->values[local_row * block_width + local_col] = Ax[row_nz_idx];
+            // }
         }
     }
     if (l2->block_count < 100)print_block(l2);

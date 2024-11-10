@@ -21,7 +21,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -g")
     set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fsanitize=address")
 endif ()
-add_compile_options(-g -Wall -O3)
+add_compile_options(-g -Wall -fopenmp -O3)
 
 add_executable(QKLU main.c
         src/base/matrix.c
@@ -46,11 +46,8 @@ add_executable(QKLU main.c
 #--------------------------依赖库------------------------------
 set(CMAKE_PREFIX_PATH "/opt/homebrew/Cellar/jpeg-turbo/3.0.2/")
 set(CMAKE_PREFIX_PATH "/opt/homebrew/Cellar/suite-sparse/7.7.0/")
-set(CMAKE_PREFIX_PATH "/opt/intel/oneapi/mkl/latest/")
+#set(CMAKE_PREFIX_PATH "/opt/intel/oneapi/mkl/latest/")
 set(CMAKE_PREFIX_PATH "/opt/homebrew/opt/openblas/")
-
-find_package(OpenMP REQUIRED)
-target_link_libraries(QKLU OpenMP::OpenMP_CXX OpenMP::OpenMP_C)
 
 #JPEG
 find_package(JPEG REQUIRED)
@@ -72,9 +69,9 @@ else ()
 endif ()
 
 #find_package(BLAS REQUIRED)
-find_package(MKL CONFIG REQUIRED)
-message(STATUS "${MKL_IMPORTED_TARGETS}")
-target_link_libraries(QKLU MKL::MKL)
+#find_package(MKL CONFIG REQUIRED)
+#message(STATUS "${MKL_IMPORTED_TARGETS}")
+#target_link_libraries(QKLU MKL::MKL)
 
 # 查找Google Test库
 #enable_testing()
@@ -129,8 +126,11 @@ target_link_libraries(gtest ${AMD_LIBRARIES})
 target_link_libraries(gtest ${JPEG_LIBRARIES})
 #target_link_libraries(gtest GTest::gtest GTest::gtest_main)
 target_link_libraries(gtest OpenBLAS)
-target_link_libraries(gtest MKL::MKL)
+find_package(OpenMP REQUIRED)
+target_link_libraries(QKLU OpenMP::OpenMP_CXX OpenMP::OpenMP_C)
+target_link_libraries(gtest OpenMP::OpenMP_CXX OpenMP::OpenMP_C)
+#target_link_libraries(gtest MKL::MKL)
 #include(GoogleTest)
 #gtest_discover_tests(gtest)
 
-add_executable(read_csc test/read_csc.c)
+add_executable(test_remove_idx test/test_remove_idx.c)
