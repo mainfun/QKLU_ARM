@@ -9,6 +9,7 @@
 #include <solving.h>
 #include <symbolic_analysis.h>
 #include <numerical.h>
+#include <base/plot.h>
 
 int main() {
     SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/tmt_unsym.mtx", false);
@@ -19,8 +20,7 @@ int main() {
     PreprocessInfo *info = init_preprocess_info();
     SparseMatrix *A = preprocess(original_matrix, info, true, true, true);
     L2Matrix *l2 = init_L2Matrix();
-    //L2Matrix block_matrix_array2D[][];
-    // csr2L2Matrix(A_pattern->row_pointers, A_pattern->col_indices, A, l2_matrix, BLOCK_SIDE);
+    //csr2image(info->pattern,"tmt_unsym.jpg",2000,2000);
     csr2L2Matrix(info->L->row_pointers, info->L->col_indices,
                  info->U->row_pointers, info->U->col_indices,
                  A->row_pointers, A->col_indices,

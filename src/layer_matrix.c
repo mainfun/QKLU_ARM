@@ -209,6 +209,12 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             printf("\n");
         }
     }
+    // for (int i = num_col_block-100; i < num_col_block; ++i) {
+    //     for (int j = num_col_block-100; j < num_col_block; ++j) {
+    //         printf("%6d ", block_nnz_arr[i * num_col_block + j]);
+    //     }
+    //     printf("\n");
+    // }
     l2->num_row_block = num_row_block;
     l2->num_col_block = num_col_block;
     l2->block_width = block_width;
@@ -347,8 +353,9 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             }
         }
     }
-    block_matrices_ptr[18731 * num_row_block + 18731]->d_size = 1000;
-    sum_d_size += 2000;
+    sum_d_size -= block_matrices_ptr[(num_row_block-1) * num_row_block + (num_row_block-1)]->d_size;
+    block_matrices_ptr[(num_row_block-1) * num_row_block + (num_row_block-1)]->d_size = BLOCK_SIDE * BLOCK_SIDE;
+    sum_d_size += BLOCK_SIDE * BLOCK_SIDE;
     LOG_INFO("\n the values size = %lld MB. (sum_d_size=%lld)", sum_d_size / 1024 / 1024 * 8, sum_d_size);
     if (sum_d_size <= 0) {
         LOG_ERROR("sum_d_size<=0");

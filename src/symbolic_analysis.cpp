@@ -564,25 +564,3 @@ void csr2csc(SparseMatrix *m) {
     m->col_pointers[0] = 0;
 }
 
-
-void get_pattern_asym(SparseMatrix *m, PreprocessInfo *info) {
-    //csc l, csr u
-    csr2csc_pattern(m);
-    get_diag_index(m, info);
-    INDEX_TYPE *sym_pointers = (INDEX_TYPE *) lu_calloc(m->num_row, sizeof(INDEX_TYPE)); //对称点
-    for (INDEX_TYPE i = 0; i < m->num_row; i++) {
-        //找对称点
-        INDEX_TYPE l_j = info->diag_index_csc[i];
-        for (INDEX_TYPE u_j = info->diag_index_csr[i]; u_j < m->row_pointers[i + 1]; u_j++) {
-            INDEX_TYPE col = m->col_indices[u_j];
-            INDEX_TYPE row = m->row_indices[l_j];
-            if (row == col) {
-                sym_pointers[i] = row;
-                break;
-            } else if (row > col) {
-                l_j++;
-            }
-        }
-        //求并集
-    }
-}

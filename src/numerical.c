@@ -3,6 +3,10 @@
 #include <cblas.h>
 #include <omp.h>
 
+long long sp_fma_count = 0;
+long long dense_fma_count = 0;
+long long other_fma_count = 0;
+
 void SpGEMM_v0(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
     ELE_TYPE *a = m1->values;
     ELE_TYPE *b = m2->values;
@@ -19,6 +23,7 @@ void SpGEMM_v0(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
             for (int k = m2->row_pointers[i]; k < m2->row_pointers[i + 1]; k++) {
                 const int b_col = m2->col_indices[k];
                 c_ptr[b_col] -= l * b_ptr[b_col];
+                sp_fma_count++;
             }
         }
     }
@@ -185,6 +190,7 @@ void SpGEMM_v1(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
                 c_ptr3[b_col] -= l3 * pv;
                 c_ptr4[b_col] -= l4 * pv;
                 c_ptr5[b_col] -= l5 * pv;
+                sp_fma_count += 6;
             }
         }
         for (; p <= m1->col_pointers[i + 1] - 2; p += 2) {
@@ -200,6 +206,7 @@ void SpGEMM_v1(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
                 const ELE_TYPE pv = b_ptr[b_col];
                 c_ptr[b_col] -= l * pv;
                 c_ptr1[b_col] -= l1 * pv;
+                sp_fma_count += 2;
             }
         }
         for (; p < m1->col_pointers[i + 1]; p++) {
@@ -210,6 +217,7 @@ void SpGEMM_v1(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
             for (int k = m2->row_pointers[i]; k < m2->row_pointers[i + 1]; k++) {
                 const int b_col = m2->col_indices[k];
                 c_ptr[b_col] -= l * b_ptr[b_col];
+                sp_fma_count++;
             }
         }
     }
@@ -229,6 +237,7 @@ void LUS(const int *Lp_start, const int *Lp_end, const int *Li,
                 int c = Ui[k];
                 //printf("eli_row_ptr[%d]-= %lf * pivot_row_ptr[%d]\n", c, l, c);
                 eli_row_ptr[c] -= l * pivot_row_ptr[c];
+                other_fma_count++;
             }
         }
     }
@@ -403,6 +412,7 @@ void LUD(ELE_TYPE *a) {
             if (l == 0) continue;
             for (int k = i + 1; k < BLOCK_SIDE; ++k) {
                 DA(j, k) -= l * DA(i, k);
+                other_fma_count++;
             }
         }
     }
@@ -421,6 +431,7 @@ void DTSTRF_SS(BlockMatrix *m1, BlockMatrix *m2) {
             for (int k = m1->row_pointers[i] + 1; k < m1->row_pointers[i + 1]; k++) {
                 const int a_col = m1->col_indices[k];
                 B(b_row, a_col) -= l * A(i, a_col);
+                other_fma_count++;
             }
         }
     }
@@ -487,6 +498,7 @@ void DGESSM_SS(BlockMatrix *m1, BlockMatrix *m2) {
                 int c = m2->col_indices[k];
                 //printf("%lf -= %lf * %lf\n", A(j, c), l, A(i, c));
                 A(j, c) -= l * A(i, c);
+                other_fma_count++;
             }
         }
     }
@@ -610,7 +622,6 @@ void SpMM_SD_v1(const BlockMatrix *m1, ELE_TYPE *b, BlockMatrix *m3) {
     //c+=a*b
     if (m3->format == SPARSE) {
         for (int i = 0; i < BLOCK_SIDE; ++i) {
-
             for (int p = m1->col_pointers[i]; p < m1->col_pointers[i + 1]; p++) {
                 const int j = m1->row_indices[p];
                 const ELE_TYPE l = A(j, i);
@@ -664,10 +675,10 @@ void sample_factor(BlockMatrix *m) {
     if (m->format == DENSE) {
         LUD(m->values);
     } else {
-        // LUS(m->col_pointers, m->col_pointers + 1, m->row_indices,
-        //     m->row_pointers, m->row_pointers + 1, m->col_indices,
-        //     m->values,BLOCK_SIDE, m->offset);
-        LUS_v1(m);
+        LUS(m->col_pointers, m->col_pointers + 1, m->row_indices,
+            m->row_pointers, m->row_pointers + 1, m->col_indices,
+            m->values,BLOCK_SIDE, m->offset);
+        // LUS_v1(m);
     }
 }
 
@@ -719,10 +730,11 @@ void schur_complement(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
     //         SpGEMM_v3(m1, m2, m3);
     //     }
     // }
-    if(m1->format == DENSE && m2->format == DENSE && m3->format==DENSE) {
+    if (m1->format == DENSE && m2->format == DENSE && m3->format == DENSE) {
         GEMM(m1->values, m2->values, m3->values);
-    }else {
-        SpGEMM_v4(m1, m2, m3);
+        dense_fma_count += BLOCK_SIDE * BLOCK_SIDE * BLOCK_SIDE;
+    } else {
+        SpGEMM_v1(m1, m2, m3);
     }
 }
 
@@ -753,7 +765,7 @@ void block_factor_up_looking_v1(L2Matrix *l2) {
         }
         //LU factor
         BlockMatrix *diag_block = get_diag_block(l2, i);
-        LUS_v1(diag_block);
+        sample_factor(diag_block);
         //下三角解
         for (int p = l2->diag_index[i] + 1; p < l2->row_pointers[i + 1]; p++) {
             const int c = l2->col_indices[p];
@@ -832,10 +844,12 @@ void block_factor_right_looking_v0(L2Matrix *l2) {
 
 void block_factor(L2Matrix *l2) {
     LOG_INFO("分解开始");
+    openblas_set_num_threads(1);
     double factor_time = omp_get_wtime();
     block_factor_up_looking_v1(l2);
     LOG_INFO("分解 elapsed time: %lf ms", (omp_get_wtime() - factor_time) * 1000.0);
     LOG_INFO("count_dense_row=%lld, count_sparse_row=%lld", count_dense_row, count_sparse_row);
+    LOG_INFO("sp_fma_count=%lld, dense_fma_count=%lld, other_fma_count=%lld", sp_fma_count, dense_fma_count, other_fma_count);
 }
 
 void block_parallel_factor(L2Matrix *l2) {
