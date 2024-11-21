@@ -1,5 +1,0 @@
-if(EXISTS "/Users/mainf/CLionProjects/QKLU/cmake-build-debug/qk_test[1]_tests.cmake")
-  include("/Users/mainf/CLionProjects/QKLU/cmake-build-debug/qk_test[1]_tests.cmake")
-else()
-  add_test(qk_test_NOT_BUILT qk_test_NOT_BUILT)
-endif()

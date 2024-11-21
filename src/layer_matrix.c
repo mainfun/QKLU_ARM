@@ -3,6 +3,8 @@
 //
 
 #include "layer_matrix.h"
+
+#include <omp.h>
 #include <symbolic_analysis.h>
 #include <base/base_math.h>
 
@@ -41,7 +43,7 @@ BlockMatrix *get_block(const L2Matrix *l2, const int i, const int j) {
 
 void print_csr(BlockMatrix *mat, int n, int d_size) {
     printf("%s\n", mat->format==SPARSE?"SPARSE":"DENSE");
-    printf("%d x %d\n", mat->num_row, mat->num_col);
+    printf("%d x %d\n", mat->side, mat->side);
     printf("Row ptr: ");
     for (int i = 0; i <= n; i++) {
         printf("%d ", mat->row_pointers[i]);
@@ -66,7 +68,7 @@ void print_csr(BlockMatrix *mat, int n, int d_size) {
 
 void print_csc(BlockMatrix *mat, int n, int d_size) {
     printf("%s\n", mat->format==SPARSE?"SPARSE":"DENSE");
-    printf("%d x %d\n", mat->num_row, mat->num_col);
+    printf("%d x %d\n", mat->side, mat->side);
     printf("Col ptr: ");
     for (int i = 0; i <= n; i++) {
         printf("%d ", mat->col_pointers[i]);
@@ -96,9 +98,9 @@ void print_block(L2Matrix *mat) {
             BlockMatrix *bm = mat->block_matrices[i * mat->num_col_block + j];
             //if (bm->format == SPARSE) {
                 if (i >= j)
-                    print_csc(bm, mat->block_width, bm->d_size);
+                    print_csc(bm, bm->side, bm->d_size);
                 if (i <= j)
-                    print_csr(bm, mat->block_width, bm->d_size);
+                    print_csr(bm, bm->side, bm->d_size);
             //}
         }
     }
@@ -170,8 +172,9 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
                   const INDEX_TYPE *Up, const INDEX_TYPE *Ui,
                   const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, const ELE_TYPE *Ax,
                   L2Matrix *l2, const int BLOCK_SIDE, INDEX_TYPE n) {
-    clock_t block_time = clock();
+    double block_time = omp_get_wtime();
     //---------------------get block nnz---------------------
+    double get_block_nnz_time=omp_get_wtime();
     const int block_height = BLOCK_SIDE;
     const int block_width = BLOCK_SIDE;
     int num_row_block = CEIL_DIV(n, block_height);
@@ -217,11 +220,11 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
     // }
     l2->num_row_block = num_row_block;
     l2->num_col_block = num_col_block;
-    l2->block_width = block_width;
-    l2->block_height = block_height;
     l2->block_count = block_count;
+    LOG_INFO("get block_count elapsed time: %lf ms", (omp_get_wtime() - get_block_nnz_time) * 1000.0);
     //--------------------end get block nnz--------------------
     //分配BlockMatrix
+    double malloc_time=omp_get_wtime();
     BlockMatrix *block_matrices = (BlockMatrix *) lu_calloc(block_count, sizeof(BlockMatrix));
     BlockMatrix **block_matrices_ptr = (BlockMatrix **)
             lu_calloc(num_col_block * num_row_block, sizeof(BlockMatrix *));
@@ -254,12 +257,15 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
                     bm->row_pointers = (int *) lu_calloc((block_height + 1), sizeof(int));
                     bm->col_indices = (int *) lu_malloc(nnz * sizeof(int));
                 }
+                bm->side=BLOCK_SIDE;
                 block_matrices_ptr[INDEX] = bm;
                 block_index++;
             }
         }
     }
+    LOG_INFO("malloc_time elapsed time: %lf ms", (omp_get_wtime() - malloc_time) * 1000.0);
     /**--------------end分配空间---------------**/
+    double get_block_index_time=omp_get_wtime();
     /**--------------计算非零索引---------------**/
     for (INDEX_TYPE i = 0; i < n; i++) {
         INDEX_TYPE row_block_idx = i / block_height;
@@ -292,6 +298,8 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             bm->u_nnz++;
         }
     }
+    LOG_INFO("get_block_index_time elapsed time: %lf ms", (omp_get_wtime() - get_block_index_time) * 1000.0);
+    double get_offset_time=omp_get_wtime();
     long long sum_d_size = 0;
     for (int i = 0; i < num_row_block; ++i) {
         // 更新每个子块的行列指针数组
@@ -353,7 +361,10 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
             }
         }
     }
+    LOG_INFO("get_offset_time elapsed time: %lf ms", (omp_get_wtime() - get_offset_time) * 1000.0);
+    double blocking_other_time=omp_get_wtime();
     sum_d_size -= block_matrices_ptr[(num_row_block-1) * num_row_block + (num_row_block-1)]->d_size;
+    block_matrices_ptr[(num_row_block-1) * num_row_block + (num_row_block-1)]->side= (int)(n%BLOCK_SIDE);
     block_matrices_ptr[(num_row_block-1) * num_row_block + (num_row_block-1)]->d_size = BLOCK_SIDE * BLOCK_SIDE;
     sum_d_size += BLOCK_SIDE * BLOCK_SIDE;
     LOG_INFO("\n the values size = %lld MB. (sum_d_size=%lld)", sum_d_size / 1024 / 1024 * 8, sum_d_size);
@@ -414,5 +425,6 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
         }
     }
     if (l2->block_count < 100)print_block(l2);
-    LOG_INFO("blocking elapsed time: %lf ms", ((double) (clock() - block_time)) / CLOCKS_PER_SEC * 1000.0);
+    LOG_INFO("blocking_other_time elapsed time: %lf ms", (omp_get_wtime() - blocking_other_time) * 1000.0);
+    LOG_INFO("block_time elapsed time: %lf ms", (omp_get_wtime() - block_time) * 1000.0);
 }

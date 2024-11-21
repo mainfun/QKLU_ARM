@@ -29,8 +29,7 @@ typedef struct {
     SparseMatrixFormat format;
     int u_nnz; // 非零元素的总数
     int l_nnz; // 非零元素的总数
-    int num_row;
-    int num_col;
+    int side;//行（列）大小
 } BlockMatrix;
 
 
@@ -45,8 +44,6 @@ typedef struct {
     int *diag_index_csc;
     int num_row_block; //一列有多少行块
     int num_col_block;
-    int block_width;
-    int block_height;
     int block_count; //非0块个数
 } L2Matrix;
 

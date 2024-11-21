@@ -1,7 +1,0 @@
-add_test([=[PrintMessageTest.OutputIsCorrect]=]  /Users/mainf/CLionProjects/QKLU/bin/qk_test [==[--gtest_filter=PrintMessageTest.OutputIsCorrect]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[PrintMessageTest.OutputIsCorrect]=]  PROPERTIES WORKING_DIRECTORY /Users/mainf/CLionProjects/QKLU/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test([=[SparseMatrixTest.LoadMatrix]=]  /Users/mainf/CLionProjects/QKLU/bin/qk_test [==[--gtest_filter=SparseMatrixTest.LoadMatrix]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[SparseMatrixTest.LoadMatrix]=]  PROPERTIES WORKING_DIRECTORY /Users/mainf/CLionProjects/QKLU/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test([=[BlockingTest.Test02GetSubmatricesNNZ]=]  /Users/mainf/CLionProjects/QKLU/bin/qk_test [==[--gtest_filter=BlockingTest.Test02GetSubmatricesNNZ]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[BlockingTest.Test02GetSubmatricesNNZ]=]  PROPERTIES WORKING_DIRECTORY /Users/mainf/CLionProjects/QKLU/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set(  qk_test_TESTS PrintMessageTest.OutputIsCorrect SparseMatrixTest.LoadMatrix BlockingTest.Test02GetSubmatricesNNZ)

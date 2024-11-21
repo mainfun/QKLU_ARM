@@ -773,47 +773,49 @@ void block_factor_up_looking_v1(L2Matrix *l2) {
         }
     }
     printf("\nu_nnz: %d,%d,%d,%d\n\n", u_nnz_0_500, u_nnz_500_2000, u_nnz_2000_4000, u_nnz_4000);
-    LOG_INFO("SpGEMM elapsed time: %lf ms", ((double) (clock() - spgemm_time)) / CLOCKS_PER_SEC * 1000.0);
+    LOG_INFO("SpGEMM elapsed time: %lf ms", (clock() - spgemm_time) * 1000.0);
 }
 
 void parallel_factor_v0(L2Matrix *l2) {
-    int max_prio = omp_get_max_task_priority();
-    //default(none) firstprivate(l2, max_prio)
-    #pragma omp parallel shared(l2, max_prio)
+    int task_count=0;
+    #pragma omp parallel
     #pragma omp single nowait
     for (int i = 0; i < l2->num_row_block; ++i) {
         for (int p = l2->row_pointers[i]; p < l2->diag_index[i]; p++) {
             int j = l2->col_indices[p];
             //上三角解
-            BlockMatrix l_bm = *get_block(l2, i, j);
-            BlockMatrix diag_block = *get_diag_block(l2, j);
-            #pragma omp task default(none) shared(diag_block, l_bm) depend(inout:diag_block)
-            DTSTRF_SS(&diag_block, &l_bm);
+            BlockMatrix *l_bm = get_block(l2, i, j);
+            BlockMatrix *diag_block = get_diag_block(l2, j);
+            #pragma omp task depend(in:*diag_block) depend(inout:*l_bm)
+            DTSTRF_SS(diag_block, l_bm);
+            task_count++;
             //schur a(i,c)-=l(i,j) * u(j,c)
             for (int k = l2->diag_index[j] + 1; k < l2->row_pointers[j + 1]; k++) {
                 int col_idx = l2->col_indices[k];
                 BlockMatrix *c_bm_ptr = get_block(l2, i, col_idx);
                 if (c_bm_ptr != NULL) {
-                    BlockMatrix c_bm = *c_bm_ptr;
-                    BlockMatrix u_bm = *get_block(l2, j, col_idx);
-                    #pragma omp task default(none) shared(l_bm, u_bm, c_bm) \
-                        depend(inout:c_bm) depend(in:l_bm) depend(in:u_bm)
-                    SpGEMM_v1(&l_bm, &u_bm, &c_bm);
+                    BlockMatrix *c_bm = c_bm_ptr;
+                    BlockMatrix *u_bm = get_block(l2, j, col_idx);
+                    #pragma omp task depend(in:*l_bm) depend(in:*u_bm) depend(inout:*c_bm)
+                    schur_complement(l_bm, u_bm, c_bm);
+                    task_count++;
                 }
             }
         }
         //LU factor
-        BlockMatrix diag_block = *get_diag_block(l2, i);
-        #pragma omp task default(none) shared(diag_block) depend(inout:diag_block)
-        sample_factor(&diag_block);
+        BlockMatrix *diag_block = get_diag_block(l2, i);
+        #pragma omp task depend(inout:*diag_block)
+        LUS_v1(diag_block);
         //下三角解
         for (int p = l2->diag_index[i] + 1; p < l2->row_pointers[i + 1]; p++) {
             const int c = l2->col_indices[p];
-            BlockMatrix bm = *get_block(l2, i, c);
-            #pragma omp task default(none) shared(diag_block, bm) depend(inout:bm) depend(in:diag_block)
-            DGESSM_SS(&diag_block, &bm);
+            BlockMatrix *bm = get_block(l2, i, c);
+            #pragma omp task depend(in:*diag_block) depend(inout:*bm)
+            DGESSM_SS(diag_block, bm);
+            task_count++;
         }
     }
+    LOG_INFO("task_count=%d",task_count);
 }
 
 ///块间右看法

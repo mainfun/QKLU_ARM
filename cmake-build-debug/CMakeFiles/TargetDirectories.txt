@@ -1,5 +1,0 @@
-/Users/mainf/CLionProjects/QKLU/cmake-build-debug/CMakeFiles/QKLU.dir
-/Users/mainf/CLionProjects/QKLU/cmake-build-debug/CMakeFiles/gtest.dir
-/Users/mainf/CLionProjects/QKLU/cmake-build-debug/CMakeFiles/test_remove_idx.dir
-/Users/mainf/CLionProjects/QKLU/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/mainf/CLionProjects/QKLU/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,1 +1,0 @@
-set(  QKLU_TESTS)
