@@ -12,8 +12,8 @@
 #include <base/plot.h>
 
 int main() {
-    SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/tmt_unsym.mtx", false);
-    // SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/onetone1.mtx", false);
+    // SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/tmt_unsym.mtx", false);
+    SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/onetone1.mtx", false);
     // SparseMatrix *original_matrix = load_matrix_csr("/Users/mainf/其他/mtx/k3plates.mtx", false);
     // SparseMatrix *original_matrix = load_matrix_csr("../res/test02.mtx", false);
     const INDEX_TYPE n = original_matrix->num_row;
@@ -33,6 +33,7 @@ int main() {
     l2->diag_index_csc = get_diag_index_i(l2->col_pointers, l2->row_indices, l2->num_row_block);
     //-----------------------end l2 get csc end-------------------------
     block_factor(l2);
+    // block_parallel_factor(l2);
     clock_t solving_time = clock();
     //初始化解向量b
     ELE_TYPE *b = (ELE_TYPE *) malloc(n * sizeof(ELE_TYPE));
