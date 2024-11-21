@@ -14,6 +14,10 @@ set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${CMAKE_SOURCE_DIR}/lib")
 
 include_directories(src)
 include_directories(include)
+include_directories(/home/wrq/local/include)
+include_directories(/home/wrq/local/include/suitesparse)
+link_directories(/home/wrq/local/lib)
+set(CMAKE_PREFIX_PATH "/home/wrq/local/")
 
 set(CMAKE_BUILD_TYPE Debug) # 设置为 Debug 模式
 # 启用 AddressSanitizer
