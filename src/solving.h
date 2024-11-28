@@ -36,12 +36,14 @@ void backward_substitution(const SparseMatrix *U, const INDEX_TYPE *reorder_perm
 
 void backward_substitution_block(const L2Matrix *U, const INDEX_TYPE *reorder_perm,
                                  const INDEX_TYPE *reorder_iperm, const ELE_TYPE *Dc,
-                                 ELE_TYPE *x, const ELE_TYPE *y, INDEX_TYPE n);
+                                 ELE_TYPE *x, const ELE_TYPE *y, INDEX_TYPE n,
+                                 const INDEX_TYPE *toposort_iperm);
 
 void forward_substitution_block(const L2Matrix *L, const INDEX_TYPE *reorder_iperm,
                                 const INDEX_TYPE *reorder_perm, const ELE_TYPE *Dr,
                                 const INDEX_TYPE *mc64_perm, const INDEX_TYPE *mc64_iperm,
-                                const ELE_TYPE *b, ELE_TYPE *y, INDEX_TYPE n);
+                                const ELE_TYPE *b, ELE_TYPE *y, INDEX_TYPE n,
+                                const INDEX_TYPE *toposort_iperm);
 #ifdef __cplusplus
 }
 #endif

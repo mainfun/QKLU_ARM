@@ -129,7 +129,6 @@ void upper_solver_block(const L2Matrix *l2, ELE_TYPE *x, const ELE_TYPE *b) {
         }
         //解对角块
         BlockMatrix *bm = get_diag_block(l2, i);
-        n=bm->side;
         if (bm->format == SPARSE || bm->format == DENSE) {
             const int block_col_idx = i;
             for (int ii = bm->side-1; ii >= 0; --ii) {
@@ -213,11 +212,17 @@ void forward_substitution(const SparseMatrix *L, const INDEX_TYPE *reorder_iperm
 void forward_substitution_block(const L2Matrix *L, const INDEX_TYPE *reorder_iperm,
                                 const INDEX_TYPE *reorder_perm, const ELE_TYPE *Dr,
                                 const INDEX_TYPE *mc64_perm, const INDEX_TYPE *mc64_iperm,
-                                const ELE_TYPE *b, ELE_TYPE *y, INDEX_TYPE n) {
+                                const ELE_TYPE *b, ELE_TYPE *y, INDEX_TYPE n,
+                                const INDEX_TYPE *toposort_iperm) {
     ELE_TYPE *b_prime = (ELE_TYPE *) malloc(n * sizeof(ELE_TYPE));
+    ELE_TYPE *temp = (ELE_TYPE *) malloc(n * sizeof(ELE_TYPE));
     for (INDEX_TYPE i = 0; i < n; i++) {
-        b_prime[reorder_iperm[mc64_perm[i]]] = b[i] * Dr[i];
+        temp[reorder_iperm[mc64_perm[i]]] = b[i] * Dr[i];
     }
+    for (INDEX_TYPE i = 0; i < n; i++) {
+        b_prime[toposort_iperm[i]] = temp[i];
+    }
+
     for (INDEX_TYPE i = 0; i < n; ++i) {
         y[i] = b_prime[i];
     }
@@ -243,14 +248,20 @@ void backward_substitution(const SparseMatrix *U, const INDEX_TYPE *reorder_perm
 
 void backward_substitution_block(const L2Matrix *U, const INDEX_TYPE *reorder_perm,
                                  const INDEX_TYPE *reorder_iperm, const ELE_TYPE *Dc,
-                                 ELE_TYPE *x, const ELE_TYPE *y, INDEX_TYPE n) {
+                                 ELE_TYPE *x, const ELE_TYPE *y, INDEX_TYPE n,
+                                 const INDEX_TYPE *toposort_iperm) {
     ELE_TYPE *z = (ELE_TYPE *) malloc(n * sizeof(ELE_TYPE));
     for (INDEX_TYPE i = 0; i < n; ++i) {
         z[i] = y[i];
     }
     upper_solver_block(U, z, y);
+
+    ELE_TYPE *temp = (ELE_TYPE *) malloc(n * sizeof(ELE_TYPE));
     for (INDEX_TYPE i = 0; i < n; i++) {
-        x[i] = z[reorder_iperm[i]] * Dc[i];
+        temp[i] = z[toposort_iperm[i]];
+    }
+    for (INDEX_TYPE i = 0; i < n; i++) {
+        x[i] = temp[reorder_iperm[i]] * Dc[i];
     }
     free(z);
 }

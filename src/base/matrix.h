@@ -90,6 +90,20 @@ ELE_TYPE *csr2dense(const SparseMatrix *A);
  * @param y ELE_TYPE
  */
 void SpMV_csr(const SparseMatrix *A, const ELE_TYPE *x, ELE_TYPE *y);
+
+/**
+* @brief calc A'+A.
+* @param[in]  n A n
+* @param[in]  nz A nnz
+* @param[in]  col_ptr A column pointer
+* @param[in]  row_idx A row indices
+* @param[out] bnz A'+A nnz
+* @param[out] b_col_ptr A'+A column pointer
+* @param[out] b_row_ind A'+A row indices
+**/
+void a_plus_at(INDEX_TYPE n, INDEX_TYPE nz,
+               const INDEX_TYPE *col_ptr, const INDEX_TYPE *row_idx,
+               INDEX_TYPE *bnz, INDEX_TYPE **b_col_ptr, INDEX_TYPE **b_row_ind);
 #ifdef __cplusplus
 }
 #endif

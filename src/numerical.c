@@ -6,6 +6,8 @@
 long long sp_fma_count = 0;
 long long dense_fma_count = 0;
 long long other_fma_count = 0;
+double gemm_time = 0;
+double spgemm_time = 0;
 
 void SpGEMM_v0(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
     ELE_TYPE *a = m1->values;
@@ -361,8 +363,6 @@ void SpGEMM_v2(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
     }
 }
 
-#include <arm_neon.h>
-
 void DTSTRF_SS_v1(BlockMatrix *m1, BlockMatrix *m2) {
     ELE_TYPE *a = m1->values;
     ELE_TYPE *b = m2->values;
@@ -715,6 +715,33 @@ void sample_factor(BlockMatrix *m) {
 //     }
 // }
 
+void add_matrix_DS_csc(BlockMatrix *m1, BlockMatrix *m2) {
+    ELE_TYPE *a = m1->values;
+    ELE_TYPE *b = m2->values;
+    int *offset1 = m1->offset;
+    int *offset2 = m2->offset;
+    for (int i = 0; i < BLOCK_SIDE; ++i) {
+        for (int p = m1->col_pointers[i]; p < m1->col_pointers[i + 1]; p++) {
+            const int r = m1->row_indices[p];
+            b[offset2[r] + i] -= a[offset1[r] + i];
+        }
+    }
+}
+
+void add_matrix_DS_csr(BlockMatrix *m1, BlockMatrix *m2) {
+    ELE_TYPE *a = m1->values;
+    ELE_TYPE *b = m2->values;
+    int *offset1 = m1->offset;
+    int *offset2 = m2->offset;
+    for (int i = 0; i < BLOCK_SIDE; ++i) {
+        for (int p = m1->row_pointers[i]; p < m1->row_pointers[i + 1]; p++) {
+            const int c = m1->col_indices[p];
+            b[offset2[i] + c] -= a[offset1[i] + c];
+        }
+    }
+}
+
+
 ///m3+=m1*m2
 void schur_complement(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
     // if (m1->format == DENSE) {
@@ -731,10 +758,14 @@ void schur_complement(BlockMatrix *m1, BlockMatrix *m2, BlockMatrix *m3) {
     //     }
     // }
     if (m1->format == DENSE && m2->format == DENSE && m3->format == DENSE) {
+        double t = omp_get_wtime();
         GEMM(m1->values, m2->values, m3->values);
-        dense_fma_count += BLOCK_SIDE * BLOCK_SIDE * BLOCK_SIDE;
+        gemm_time += omp_get_wtime() - t;
+        dense_fma_count += 57163; //BLOCK_SIDE * BLOCK_SIDE * BLOCK_SIDE;
     } else {
+        double t = omp_get_wtime();
         SpGEMM_v1(m1, m2, m3);
+        spgemm_time += omp_get_wtime() - t;
     }
 }
 
@@ -743,7 +774,7 @@ void block_factor_up_looking_v1(L2Matrix *l2) {
     int u_nnz_500_2000 = 0;
     int u_nnz_2000_4000 = 0;
     int u_nnz_4000 = 0;
-    double spgemm_time = 0;
+    double mm_time = 0;
     for (int i = 0; i < l2->num_row_block; ++i) {
         for (int p = l2->row_pointers[i]; p < l2->diag_index[i]; p++) {
             int j = l2->col_indices[p];
@@ -759,7 +790,7 @@ void block_factor_up_looking_v1(L2Matrix *l2) {
                     double t = omp_get_wtime();
                     BlockMatrix *u_bm = get_block(l2, j, col_idx);
                     schur_complement(l_bm, u_bm, bm);
-                    spgemm_time += omp_get_wtime() - t;
+                    mm_time += omp_get_wtime() - t;
                 }
             }
         }
@@ -773,49 +804,7 @@ void block_factor_up_looking_v1(L2Matrix *l2) {
         }
     }
     printf("\nu_nnz: %d,%d,%d,%d\n\n", u_nnz_0_500, u_nnz_500_2000, u_nnz_2000_4000, u_nnz_4000);
-    LOG_INFO("SpGEMM elapsed time: %lf ms", (clock() - spgemm_time) * 1000.0);
-}
-
-void parallel_factor_v0(L2Matrix *l2) {
-    int task_count=0;
-    #pragma omp parallel
-    #pragma omp single nowait
-    for (int i = 0; i < l2->num_row_block; ++i) {
-        for (int p = l2->row_pointers[i]; p < l2->diag_index[i]; p++) {
-            int j = l2->col_indices[p];
-            //上三角解
-            BlockMatrix *l_bm = get_block(l2, i, j);
-            BlockMatrix *diag_block = get_diag_block(l2, j);
-            #pragma omp task depend(in:*diag_block) depend(inout:*l_bm)
-            DTSTRF_SS(diag_block, l_bm);
-            task_count++;
-            //schur a(i,c)-=l(i,j) * u(j,c)
-            for (int k = l2->diag_index[j] + 1; k < l2->row_pointers[j + 1]; k++) {
-                int col_idx = l2->col_indices[k];
-                BlockMatrix *c_bm_ptr = get_block(l2, i, col_idx);
-                if (c_bm_ptr != NULL) {
-                    BlockMatrix *c_bm = c_bm_ptr;
-                    BlockMatrix *u_bm = get_block(l2, j, col_idx);
-                    #pragma omp task depend(in:*l_bm) depend(in:*u_bm) depend(inout:*c_bm)
-                    schur_complement(l_bm, u_bm, c_bm);
-                    task_count++;
-                }
-            }
-        }
-        //LU factor
-        BlockMatrix *diag_block = get_diag_block(l2, i);
-        #pragma omp task depend(inout:*diag_block)
-        LUS_v1(diag_block);
-        //下三角解
-        for (int p = l2->diag_index[i] + 1; p < l2->row_pointers[i + 1]; p++) {
-            const int c = l2->col_indices[p];
-            BlockMatrix *bm = get_block(l2, i, c);
-            #pragma omp task depend(in:*diag_block) depend(inout:*bm)
-            DGESSM_SS(diag_block, bm);
-            task_count++;
-        }
-    }
-    LOG_INFO("task_count=%d",task_count);
+    LOG_INFO("DGESSM elapsed time: %lf ms", (mm_time) * 1000.0);
 }
 
 ///块间右看法
@@ -851,12 +840,13 @@ void block_factor(L2Matrix *l2) {
     block_factor_up_looking_v1(l2);
     LOG_INFO("分解 elapsed time: %lf ms", (omp_get_wtime() - factor_time) * 1000.0);
     LOG_INFO("count_dense_row=%lld, count_sparse_row=%lld", count_dense_row, count_sparse_row);
-    LOG_INFO("sp_fma_count=%lld, dense_fma_count=%lld, other_fma_count=%lld", sp_fma_count, dense_fma_count, other_fma_count);
+    LOG_INFO("sp_fma_count=%lld, dense_fma_count=%lld, other_fma_count=%lld", sp_fma_count, dense_fma_count,
+             other_fma_count);
+    LOG_INFO("spgemm time: %lf ms. gemm time: %lf ms", spgemm_time * 1000.0, gemm_time * 1000.0);
 }
 
 void block_parallel_factor(L2Matrix *l2) {
     LOG_INFO("分解开始");
     double factor_time = omp_get_wtime();
-    parallel_factor_v0(l2);
     LOG_INFO("分解 elapsed time: %lf ms", (omp_get_wtime() - factor_time) * 1000.0);
 }

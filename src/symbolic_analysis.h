@@ -18,6 +18,8 @@ extern "C" {
  */
 void symbolic_calc_sym(SparseMatrix *matrix, PreprocessInfo *info);
 
+
+
 /**
  * 对称矩阵生成行消元树
  * @param csr_mat CSR格式矩阵

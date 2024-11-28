@@ -31,6 +31,7 @@ typedef struct PREPROCESS_INFO {
     INDEX_TYPE *mc64_iperm;
     double *Dc; //选主元的缩放矩阵,col_scale
     double *Dr; //row_scale
+    INDEX_TYPE *toposort_iperm;//拓扑排序，置换矩阵
 } PreprocessInfo;
 
 PreprocessInfo *init_preprocess_info();

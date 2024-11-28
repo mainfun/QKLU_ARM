@@ -23,6 +23,8 @@ extern "C" {
  */
 void csr2image(const SparseMatrix *matrix, const char *filename, int img_width, int img_height);
 
+void csr2_RGB_image(const SparseMatrix *matrix, const char *filename, int img_width, int img_height);
+
 /**
  * 画出矩阵的局部分块的结构
  */

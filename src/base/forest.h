@@ -11,12 +11,13 @@ extern "C" {
 
 // Forest 结构体定义
 typedef struct {
-    INDEX_TYPE *first_child;   // 指向第一个孩子的指针数组
-    INDEX_TYPE *next_sibling;  // 指向下一个兄弟节点的指针数组
-    INDEX_TYPE *last_sibling;  // 指向最后一个兄弟节点的指针数组
-    INDEX_TYPE *parent;        // 指向父节点的指针数组
-    INDEX_TYPE *child_count;   // 存储每个节点的孩子数量的数组
-    INDEX_TYPE node_count;     // 节点数量
+    INDEX_TYPE *first_child; // 指向第一个孩子的指针数组
+    INDEX_TYPE *next_sibling; // 指向下一个兄弟节点的指针数组
+    INDEX_TYPE *last_sibling; // 指向最后一个兄弟节点的指针数组
+    INDEX_TYPE *parent; // 指向父节点的指针数组
+    INDEX_TYPE *child_count; // 存储每个节点的孩子数量的数组
+    INDEX_TYPE *sub_node_count; //sub_node_count[i]表示以i为根的树的节点数量
+    INDEX_TYPE node_count; // 节点数量
 } Forest;
 
 /**
@@ -78,6 +79,26 @@ INDEX_TYPE get_child_count(Forest *forest, INDEX_TYPE node);
  * @param node 节点的索引
  */
 void traverse_children(Forest *forest, INDEX_TYPE node);
+
+/**
+* 后跟遍历(递归实现)
+* @param root 树根
+*/
+void postorder_traversal_recursion(Forest *forest, INDEX_TYPE root);
+
+void postorder_traversal(Forest *forest, INDEX_TYPE root);
+
+/**
+* 先跟遍历（栈实现）
+* @param root 树根
+*/
+void preorder_traversal(Forest *forest, INDEX_TYPE root);
+
+/**
+* 划分子树
+* @param min max 树的节点个数范围
+*/
+void partitioning(Forest *forest, INDEX_TYPE root, int min, int max);
 
 /**
  * 输出计算序列

@@ -29,7 +29,9 @@ typedef struct {
     SparseMatrixFormat format;
     int u_nnz; // 非零元素的总数
     int l_nnz; // 非零元素的总数
-    int side;//行（列）大小
+    int side; //行（列）大小
+    int num_row; //行个数（列大小）
+    int num_col;
 } BlockMatrix;
 
 
@@ -45,6 +47,8 @@ typedef struct {
     int num_row_block; //一列有多少行块
     int num_col_block;
     int block_count; //非0块个数
+    INDEX_TYPE side; //整个矩阵行（列）大小
+    INDEX_TYPE *block_side_sum; //block_side_sum[i]是前i个分块的边长的累加和
 } L2Matrix;
 
 typedef struct {
@@ -85,6 +89,8 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
                   const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, const ELE_TYPE *Ax,
                   L2Matrix *l2, int BLOCK_SIDE, INDEX_TYPE n);
 
+void calc_block_side(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
+                     L2Matrix *l2, int BLOCK_SIDE, INDEX_TYPE n);
 
 #ifdef __cplusplus
 }

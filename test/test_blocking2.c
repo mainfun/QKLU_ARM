@@ -30,7 +30,7 @@
 //
 // int main() {
 // //    log_cpu_info();
-// ////    SparseMatrix *m = load_matrix_csr("/Users/mainf/CLionProjects/my_lu/res/k3plates.mtx", false);
+// ////    SparseMatrix *m = load_matrix_csr("/Users/mainf/CLionProjects/my_lu/res/k3plates.jpg.mtx", false);
 // ////    blocking_csr_matrix(m, 100, 100);
 //     SparseMatrix *m = load_matrix_csr("../res/test02.mtx", false);
 //     blocking_csr_pattern(m, 2, 2);

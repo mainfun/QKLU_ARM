@@ -86,6 +86,8 @@ endif ()
 include_directories(/opt/homebrew/opt/openblas/include)
 link_directories(/opt/homebrew/opt/openblas/lib)
 find_package(OpenBLAS REQUIRED)
+#target_link_libraries(gtest /home/wrq/local/lib/libopenblas.so)
+#target_link_libraries(QKLU /home/wrq/local/lib/libopenblas.so)
 #target_link_libraries(QKLU OpenBLAS)
 
 #----复制库----
@@ -118,6 +120,9 @@ add_executable(gtest
 #        test/test_gessm.c
         test/test_L2mtriax.c
         src/numerical.c
+        src/toposort.c
+        src/etree.c
+#        test/test_topo_factor.c
         #        test/test_lower_solving.c
         #        test/test_upper_solving.cpp
         #        test/mkl_lu_sp.cpp
@@ -137,4 +142,25 @@ target_link_libraries(gtest OpenMP::OpenMP_CXX OpenMP::OpenMP_C)
 #include(GoogleTest)
 #gtest_discover_tests(gtest)
 
-add_executable(test_remove_idx test/test_remove_idx.c)
+add_executable(test_remove_idx test/test_remove_idx.c
+        test/test_reorder_big_num_range.c)
+add_executable(etree
+#        test/test_etree/test_forest.c
+        src/base/matrix.c
+        src/base/plot.c
+        src/base/file.c
+        src/base/vector_util.cpp
+        src/base/sort.c
+        src/base/identify_chip.c
+        src/base/forest.c
+        src/base/malloc.c
+        src/pivoting.c
+        src/reorder.c
+        src/symbolic_analysis.cpp
+        src/preprocess.c
+        test/test_etree/create_etree.c
+        src/toposort.c
+        src/etree.c
+)
+target_link_libraries(etree ${AMD_LIBRARIES})
+target_link_libraries(etree ${JPEG_LIBRARIES})

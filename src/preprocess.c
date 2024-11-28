@@ -3,6 +3,9 @@
 //
 
 #include "preprocess.h"
+
+#include <toposort.h>
+
 #include "pivoting.h"
 #include "reorder.h"
 #include "base/file.h"
@@ -177,8 +180,15 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
      */
     SparseMatrix *A = init_csr_matrix(n, n, nnz);
     if (is_reorder) {
+        SparseMatrix *temp2 = init_csr_matrix(n, n, A->nnz);
+
         reorder_csr_amd(tmp_matrix, info);
-        apply_permutation(tmp_matrix, A, info->reorder_iperm);
+        apply_permutation(tmp_matrix, temp2, info->reorder_iperm);
+
+        INDEX_TYPE *toposort_iperm = reorder_toposort(temp2, n);
+        apply_permutation(temp2, A, toposort_iperm);
+        info->toposort_iperm = toposort_iperm;
+
         if (is_static_pivoting) {
             free_sparse_matrix(tmp_matrix);
         }
@@ -198,7 +208,7 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
      */
     if (is_symbolic_calc) {
         LOG_INFO("符号计算开始......");
-        clock_t symbolic_calc_time=clock();
+        clock_t symbolic_calc_time = clock();
         //symbolic_calc_sym(A, info);
         csr2csc_pattern(A);
         info->L = init_sparse_matrix(A->num_row, A->num_row, A->nnz);
