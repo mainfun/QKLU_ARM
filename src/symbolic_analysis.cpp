@@ -3,6 +3,9 @@
 //
 #include <algorithm>
 #include "symbolic_analysis.h"
+
+#include <omp.h>
+
 #include "base/matrix.h"
 
 void symbolic_calc_sym(SparseMatrix *matrix, PreprocessInfo *info) {
@@ -256,6 +259,7 @@ void fill_in_2_no_sort_pruneL(INDEX_TYPE n, INDEX_TYPE nnz,
                               INDEX_TYPE *ai, INDEX_TYPE *ap,
                               INDEX_TYPE **L_rowpointer, INDEX_TYPE **L_columnindex,
                               INDEX_TYPE **U_rowpointer, INDEX_TYPE **U_columnindex) {
+    INDEX_TYPE count=0;
     INDEX_TYPE relloc_zjq = nnz;
     INDEX_TYPE *U_r_idx = (INDEX_TYPE *) lu_malloc(relloc_zjq * sizeof(INDEX_TYPE)); //exclude diagonal
     INDEX_TYPE *U_c_ptr = (INDEX_TYPE *) lu_malloc((n + 1) * sizeof(INDEX_TYPE));
@@ -327,7 +331,7 @@ void fill_in_2_no_sort_pruneL(INDEX_TYPE n, INDEX_TYPE nnz,
                     while (xdfs < maxdfs) {
                         kchild = L_r_idx[xdfs];
                         xdfs++;
-
+                        count++;
                         if (work_space[kchild] != i) {
                             work_space[kchild] = i;
                             if (kchild >= i) {
@@ -376,6 +380,7 @@ void fill_in_2_no_sort_pruneL(INDEX_TYPE n, INDEX_TYPE nnz,
     }
 
     //L
+    double sort_time=omp_get_wtime();
     for (INDEX_TYPE i = 0; i < n; ++i) {
         std::sort(&L_r_idx[L_c_ptr[i]], &L_r_idx[L_c_ptr[i + 1]]);
     }
@@ -383,7 +388,8 @@ void fill_in_2_no_sort_pruneL(INDEX_TYPE n, INDEX_TYPE nnz,
     for (INDEX_TYPE i = 0; i < n; ++i) {
         std::sort(&U_r_idx[U_c_ptr[i]], &U_r_idx[U_c_ptr[i + 1]]);
     }
-
+    LOG_INFO("sort elapsed time: %lf ms", (omp_get_wtime() - sort_time) * 1000.0);
+    LOG_DEBUG("fill_in_2_no_sort_pruneL count:%lld",count);
     lu_free(parent);
     lu_free(xplore);
     lu_free(work_space);

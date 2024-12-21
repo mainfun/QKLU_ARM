@@ -120,9 +120,11 @@ add_executable(gtest
 #        test/test_gessm.c
         test/test_L2mtriax.c
         src/numerical.c
-        src/toposort.c
+        src/toposort.cpp
         src/etree.c
-#        test/test_topo_factor.c
+        src/symb_calc.c
+#        src/toposort.cpp
+        #        test/test_topo_factor.c
         #        test/test_lower_solving.c
         #        test/test_upper_solving.cpp
         #        test/mkl_lu_sp.cpp
@@ -158,9 +160,12 @@ add_executable(etree
         src/reorder.c
         src/symbolic_analysis.cpp
         src/preprocess.c
-        test/test_etree/create_etree.c
+#        test/test_etree/create_etree.c
         src/toposort.c
         src/etree.c
+        src/symb_calc.c
+        test/test_preprocess/test_symb_calc.c
 )
 target_link_libraries(etree ${AMD_LIBRARIES})
 target_link_libraries(etree ${JPEG_LIBRARIES})
+target_link_libraries(etree OpenMP::OpenMP_CXX OpenMP::OpenMP_C)

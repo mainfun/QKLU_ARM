@@ -301,3 +301,118 @@ void a_plus_at(const INDEX_TYPE n, const INDEX_TYPE nz,
     lu_free(t_col_ptr);
     lu_free(t_row_idx);
 }
+
+//有对角线
+void a_plus_at_v2(const INDEX_TYPE n, const INDEX_TYPE nz,
+               const INDEX_TYPE *col_ptr, const INDEX_TYPE *row_idx,
+               INDEX_TYPE *bnz, INDEX_TYPE **b_col_ptr, INDEX_TYPE **b_row_ind) {
+    INDEX_TYPE i, j, k, col, num_nz;
+    /* a column oriented form of T = A' */
+    INDEX_TYPE *marker = (INDEX_TYPE *) lu_calloc(n, sizeof(INDEX_TYPE));
+    INDEX_TYPE *t_col_ptr = (INDEX_TYPE *) lu_malloc((n + 1) * sizeof(INDEX_TYPE));
+    INDEX_TYPE *t_row_idx = (INDEX_TYPE *) lu_malloc(nz * sizeof(INDEX_TYPE));
+
+    /* Get counts of each column of T, and set up column pointers */
+    for (j = 0; j < n; ++j) {
+        for (i = col_ptr[j]; i < col_ptr[j + 1]; ++i)
+            ++marker[row_idx[i]];
+    }
+    t_col_ptr[0] = 0;
+    for (i = 0; i < n; ++i) {
+        t_col_ptr[i + 1] = t_col_ptr[i] + marker[i];
+        marker[i] = t_col_ptr[i];
+    }
+
+    /* Transpose the matrix from A to T */
+    for (j = 0; j < n; ++j) {
+        for (i = col_ptr[j]; i < col_ptr[j + 1]; ++i) {
+            col = row_idx[i];
+            t_row_idx[marker[col]] = j;
+            ++marker[col];
+        }
+    }
+
+    /* ----------------------------------------------------------------
+       compute B = A + T, where column j of B is:
+
+       Struct (B_*j) = Struct (A_*k) UNION Struct (T_*k)
+
+       include the diagonal entry
+       ---------------------------------------------------------------- */
+
+    /* Zero the diagonal flag */
+    for (i = 0; i < n; ++i) marker[i] = -1;
+
+    /* First pass determines number of nonzeros in B */
+    num_nz = 0;
+    for (j = 0; j < n; ++j) {
+        /* Add the diagonal entry */
+        if (marker[j] == -1) {
+            marker[j] = j;
+            ++num_nz;
+        }
+
+        /* Add pattern of column A_*k to B_*j */
+        for (i = col_ptr[j]; i < col_ptr[j + 1]; ++i) {
+            k = row_idx[i];
+            if (marker[k] != j) {
+                marker[k] = j;
+                ++num_nz;
+            }
+        }
+
+        /* Add pattern of column T_*k to B_*j */
+        for (i = t_col_ptr[j]; i < t_col_ptr[j + 1]; ++i) {
+            k = t_row_idx[i];
+            if (marker[k] != j) {
+                marker[k] = j;
+                ++num_nz;
+            }
+        }
+    }
+    *bnz = num_nz;
+
+    /* Allocate storage for A+A' */
+    *b_col_ptr = (INDEX_TYPE *) lu_malloc((n + 1) * sizeof(INDEX_TYPE));
+    if (*bnz) {
+        *b_row_ind = (INDEX_TYPE *) lu_malloc(*bnz * sizeof(INDEX_TYPE));
+    }
+
+    /* Zero the diagonal flag */
+    for (i = 0; i < n; ++i) marker[i] = -1;
+
+    /* Compute each column of B, one at a time */
+    num_nz = 0;
+    for (j = 0; j < n; ++j) {
+        (*b_col_ptr)[j] = num_nz;
+
+        /* Add the diagonal entry */
+        if (marker[j] == -1) {
+            marker[j] = j;
+            (*b_row_ind)[num_nz++] = j; // Include the diagonal entry
+        }
+
+        /* Add pattern of column A_*k to B_*j */
+        for (i = col_ptr[j]; i < col_ptr[j + 1]; ++i) {
+            k = row_idx[i];
+            if (marker[k] != j) {
+                marker[k] = j;
+                (*b_row_ind)[num_nz++] = k;
+            }
+        }
+
+        /* Add pattern of column T_*k to B_*j */
+        for (i = t_col_ptr[j]; i < t_col_ptr[j + 1]; ++i) {
+            k = t_row_idx[i];
+            if (marker[k] != j) {
+                marker[k] = j;
+                (*b_row_ind)[num_nz++] = k;
+            }
+        }
+    }
+    (*b_col_ptr)[n] = num_nz;
+
+    lu_free(marker);
+    lu_free(t_col_ptr);
+    lu_free(t_row_idx);
+}

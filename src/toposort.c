@@ -3,10 +3,17 @@
 //
 
 #include "toposort.h"
+
+#include <math.h>
+#include <symbolic_analysis.h>
+#include <base/base_math.h>
+#include <base/plot.h>
+
 #include "etree.h"
 
 INDEX_TYPE *toposort_by_etree(INDEX_TYPE n, const INDEX_TYPE parent[],
-                              const INDEX_TYPE values[], const INDEX_TYPE threshold) {
+                              const INDEX_TYPE values[], const INDEX_TYPE threshold,
+                              INDEX_TYPE *cut_point) {
     INDEX_TYPE *order = lu_malloc(n * sizeof(INDEX_TYPE));
     INDEX_TYPE *big_stack = lu_malloc(n * sizeof(INDEX_TYPE));
     INDEX_TYPE *small_stack = lu_malloc(n * sizeof(INDEX_TYPE));
@@ -15,11 +22,6 @@ INDEX_TYPE *toposort_by_etree(INDEX_TYPE n, const INDEX_TYPE parent[],
 
     kid_count++; //为了方便处理根是-1
     for (INDEX_TYPE i = 0; i < n; kid_count[parent[i++]]++);
-    // printf("degree:");
-    // for (int i = 0; i < n; ++i) {
-    //     printf("%d ",kid_count[i]);
-    // }
-    // printf("\n");
 
     // 将所有叶子节点入栈
     for (INDEX_TYPE i = n - 1; i >= 0; i--) {
@@ -31,7 +33,7 @@ INDEX_TYPE *toposort_by_etree(INDEX_TYPE n, const INDEX_TYPE parent[],
             }
         }
     }
-
+    int is_first_pop_big_stack=true;
     // 处理栈中的节点
     while (top_big != -1 || top_small != -1) {
         // 从小值栈取出一个节点，若空则从大值栈取
@@ -40,6 +42,10 @@ INDEX_TYPE *toposort_by_etree(INDEX_TYPE n, const INDEX_TYPE parent[],
             node = small_stack[top_small--]; // 弹出小值栈
         } else {
             node = big_stack[top_big--]; // 弹出大值栈
+            if (is_first_pop_big_stack) {
+                *cut_point=top_order;
+                is_first_pop_big_stack=false;
+            }
         }
         //printf("%lld ", node);
         order[++top_order] = node;
@@ -70,30 +76,26 @@ void calc_row_wide(const INDEX_TYPE *Ap, const INDEX_TYPE *Ai, INDEX_TYPE *value
 }
 
 INDEX_TYPE calc_threshold(INDEX_TYPE n) {
-    if (n < 100) {
-        return n;
-    } else if (n < 100000) {
-        return n / 100;
-    } else if (n < 1000000) {
-        return n / 200;
-    } else if (n < 10000000) {
-        return n / 500;
-    }
-    return n / 1000;
+    return (INDEX_TYPE)(sqrt(n));
 }
 
-INDEX_TYPE *reorder_toposort(SparseMatrix *A, INDEX_TYPE n) {
+INDEX_TYPE *reorder_toposort(SparseMatrix *A, INDEX_TYPE n, INDEX_TYPE *cut_point) {
     clock_t start_time = clock();
     INDEX_TYPE *parent = lu_malloc(n * sizeof(INDEX_TYPE));
     INDEX_TYPE *b_ptr, *b_idx;
     INDEX_TYPE bnz = A->nnz * 2;
+    //todo 对角线添加
     a_plus_at(n, A->nnz, A->row_pointers, A->col_indices, &bnz, &b_ptr, &b_idx);
+    //csr2image_block(b_ptr, b_idx,"arc130_aat.jpg", 0, 130, 0, 130);
+    LOG_DEBUG("a_plus_at nnz : %lld",bnz);
+    LOG_DEBUG("a nnz : %lld",A->nnz-n);
     sp_symetree(b_ptr, b_ptr + 1, b_idx, n, parent);
     INDEX_TYPE *values = lu_malloc(n * sizeof(INDEX_TYPE));
     calc_row_wide(A->row_pointers, A->col_indices, values, n);
     INDEX_TYPE threshold = calc_threshold(n);
     LOG_DEBUG("threshold: %lld", threshold);
-    INDEX_TYPE *order = toposort_by_etree(n, parent, values, threshold);
+    INDEX_TYPE *order = toposort_by_etree(n, parent, values, threshold, cut_point);
+    LOG_DEBUG("cut_point: %lld", *cut_point);
     INDEX_TYPE *iorder = lu_malloc(n * sizeof(INDEX_TYPE));
     for (int i = 0; i < n; ++i) {
         iorder[order[i]] = i;

@@ -104,6 +104,7 @@ void finalize_disjoint_sets(
 /*
  * Symmetric elimination tree
  */
+///跟节点是-1
 INDEX_TYPE
 sp_symetree(
     INDEX_TYPE *acolst, INDEX_TYPE *acolend, /* column starts and ends past 1 */

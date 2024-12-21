@@ -51,6 +51,11 @@ INDEX_TYPE *reorder_csr_amd(const SparseMatrix *matrix, PreprocessInfo *preproce
     // 调用AMD进行重排序
     double Info[AMD_INFO];
     INDEX_TYPE status;
+    // double control[2];
+    // 设置 Control 参数
+    // control[0] = 100;         // 默认，设置稠密行/列的阈值
+    // control[1] = 1;     // 启用激进吸收（默认）
+
     if(sizeof(INDEX_TYPE) == sizeof(double)) {
         status = amd_l_order(n, (int64_t*)Ap, (int64_t*)Ai, (int64_t*)perm, NULL, Info);
     }else {

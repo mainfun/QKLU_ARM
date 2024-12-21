@@ -185,7 +185,7 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
         reorder_csr_amd(tmp_matrix, info);
         apply_permutation(tmp_matrix, temp2, info->reorder_iperm);
 
-        INDEX_TYPE *toposort_iperm = reorder_toposort(temp2, n);
+        INDEX_TYPE *toposort_iperm = reorder_toposort(temp2, n, &info->cut_point);
         apply_permutation(temp2, A, toposort_iperm);
         info->toposort_iperm = toposort_iperm;
 
@@ -211,6 +211,7 @@ SparseMatrix *preprocess(SparseMatrix *matrix, PreprocessInfo *info,
         clock_t symbolic_calc_time = clock();
         //symbolic_calc_sym(A, info);
         csr2csc_pattern(A);
+        get_diag_index(A,info);
         info->L = init_sparse_matrix(A->num_row, A->num_row, A->nnz);
         info->U = init_sparse_matrix(A->num_row, A->num_row, A->nnz);
         //反着来的

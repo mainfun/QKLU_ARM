@@ -4,6 +4,7 @@
 
 #include "layer_matrix.h"
 
+#include <math.h>
 #include <omp.h>
 #include <symbolic_analysis.h>
 #include <base/base_math.h>
@@ -431,19 +432,83 @@ void csr2L2Matrix(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
     LOG_INFO("block_time elapsed time: %lf ms", (omp_get_wtime() - block_time) * 1000.0);
 }
 
-void calc_block_side(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
-                     L2Matrix *l2, const int BLOCK_SIDE, INDEX_TYPE n) {
-    int step = BLOCK_SIDE - FLOATING_SIZE;
-    int range = 2 * FLOATING_SIZE;
-    l2->block_side_sum = (INDEX_TYPE *) lu_malloc((n / step) * sizeof(INDEX_TYPE));
-    int top = 0;
-    for (INDEX_TYPE i = 0; i < n; i ++) {
-        if(Lp[i]==Lp[i+1]) continue;
+void reverse_array(INDEX_TYPE *arr, INDEX_TYPE size) {
+    INDEX_TYPE start = 0;
+    INDEX_TYPE end = size - 1;
 
-        INDEX_TYPE col_idx = Li[Lp[i]];
+    // 交换开头和结尾的元素，直到中间
+    while (start < end) {
+        // 交换元素
+        INDEX_TYPE temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
 
+        // 移动指针
+        start++;
+        end--;
     }
 }
+
+void find_cut_points(INDEX_TYPE a[], INDEX_TYPE n, INDEX_TYPE *cut_point, INDEX_TYPE *top_p) {
+    if (cut_point == NULL)
+        LOG_ERROR("cut_point==NULL");
+    INDEX_TYPE top = 0;
+    cut_point[top] = n;
+    INDEX_TYPE remaining_steps = 0;
+    for (INDEX_TYPE i = n - 1; i >= 0; --i) {
+        if (remaining_steps == 0) {
+            if (cut_point[top] - i > (INDEX_TYPE) sqrt(n)) {
+                cut_point[++top] = i;
+            }
+        }
+        remaining_steps = MAX(remaining_steps, a[i]+1);
+        remaining_steps--;
+    }
+    *top_p = top;
+    //todo reverse_array
+    reverse_array(cut_point, top);
+
+    // lu_realloc(cut_point, top);
+    // INDEX_TYPE c0 = 0;
+    // for (INDEX_TYPE i = top; i >= 1; --i) {
+    //     printf("%lld ", cut_point[i]);
+    //     // INDEX_TYPE c1 = cut_point[i];
+    //     // for (INDEX_TYPE j = c0; j <= c1; ++j) {
+    //     //     printf("%lld ", a[j]);
+    //     // }
+    //     // printf("\n");
+    //     // c0 = c1;
+    // }
+    // printf("\n");
+}
+
+void calc_block_side(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
+                     L2Matrix *l2, const int BLOCK_SIDE, INDEX_TYPE n) {
+    //todo A+AT
+    INDEX_TYPE values[n];
+    for (INDEX_TYPE i = 0; i < n; ++i) {
+        if (Lp[i] == Lp[i + 1]) {
+            values[i] = 0;
+            continue;
+        }
+        INDEX_TYPE idx = Li[Lp[i]];
+        values[i] = i - idx;
+    }
+    INDEX_TYPE end = -1;
+    for (INDEX_TYPE i = 0; i < n; ++i) {
+        end = i;
+        if (values[i] > (INDEX_TYPE) sqrt(n)) {
+            break;
+        }
+    }
+    LOG_DEBUG("end=%lld",end);
+    INDEX_TYPE *cut_point = (INDEX_TYPE *) lu_malloc(n * sizeof(INDEX_TYPE));;
+    INDEX_TYPE top;
+    find_cut_points(values, end, cut_point, &top);
+    l2->block_side_sum = cut_point;
+    //lu_free(cut_point);
+}
+
 //
 // void calc_block_nnz(const INDEX_TYPE *Lp, const INDEX_TYPE *Li,
 //                   const INDEX_TYPE *Up, const INDEX_TYPE *Ui,
