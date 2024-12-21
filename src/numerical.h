@@ -9,7 +9,7 @@ extern "C" {
 #endif //__cplusplus
 #include <layer_matrix.h>
 
-#define BLOCK_SIDE 50
+#define BLOCK_SIDE 80
 #define A(i,j) a[offset1[i]+(j)]
 #define B(i,j) b[offset2[i]+(j)]
 #define C(i,j) c[offset3[i]+(j)]
@@ -25,7 +25,7 @@ extern "C" {
 */
 void block_factor(L2Matrix *l2);
 
-void block_parallel_factor(L2Matrix *l2);
+void block_parallel_factor(L2Matrix *l2, int cut);
 
 #ifdef __cplusplus
 }

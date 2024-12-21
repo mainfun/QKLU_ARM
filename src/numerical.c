@@ -808,8 +808,8 @@ void block_factor_up_looking_v1(L2Matrix *l2) {
 }
 
 ///块间右看法
-void block_factor_right_looking_v0(L2Matrix *l2) {
-    for (int i = 0; i < l2->num_row_block; ++i) {
+void block_factor_right_looking_v0(L2Matrix *l2, int start, int end) {
+    for (int i = start; i < end; ++i) {
         //LU分解 A[i][i]
         BlockMatrix *diag_block = get_diag_block(l2, i);
         sample_factor(diag_block);
@@ -833,10 +833,10 @@ void block_factor_right_looking_v0(L2Matrix *l2) {
     }
 }
 
-void block_factor_right_looking_omp_v0(L2Matrix *l2) {
+void block_factor_right_looking_omp_v0(L2Matrix *l2, int start) {
     #pragma omp parallel
     #pragma omp single nowait
-    for (int i = 0; i < l2->num_row_block; ++i) {
+    for (int i = start; i < l2->num_row_block; ++i) {
         //LU分解 A[i][i]
         BlockMatrix *diag_block = get_diag_block(l2, i);
         #pragma omp task depend(inout:*diag_block)
@@ -844,7 +844,7 @@ void block_factor_right_looking_omp_v0(L2Matrix *l2) {
         for (int j = l2->diag_index[i] + 1; j < l2->row_pointers[i + 1]; ++j) {
             //L[i][i]解A[i][]
             int c = l2->col_indices[j];
-            BlockMatrix *u_bm=get_block(l2, i, c);
+            BlockMatrix *u_bm = get_block(l2, i, c);
             #pragma omp task depend(in:*diag_block) depend(inout:*u_bm)
             DGESSM_SS(diag_block, u_bm);
         }
@@ -858,7 +858,7 @@ void block_factor_right_looking_omp_v0(L2Matrix *l2) {
             for (int k = l2->diag_index[i] + 1; k < l2->row_pointers[i + 1]; ++k) {
                 int c = l2->col_indices[k];
                 BlockMatrix *bm_A = get_block(l2, r, c);
-                BlockMatrix *u_bm=get_block(l2, i, c);
+                BlockMatrix *u_bm = get_block(l2, i, c);
                 if (bm_A != NULL) {
                     #pragma omp task depend(in:*bm_l) depend(in:*u_bm) depend(inout:*bm_A)
                     schur_complement(bm_l, u_bm, bm_A);
@@ -872,7 +872,7 @@ void block_factor(L2Matrix *l2) {
     LOG_INFO("分解开始");
     openblas_set_num_threads(1);
     double factor_time = omp_get_wtime();
-    block_factor_right_looking_v0(l2);
+    block_factor_right_looking_v0(l2, 0, l2->num_row_block);
     LOG_INFO("分解 elapsed time: %lf ms", (omp_get_wtime() - factor_time) * 1000.0);
     LOG_INFO("count_dense_row=%lld, count_sparse_row=%lld", count_dense_row, count_sparse_row);
     LOG_INFO("sp_fma_count=%lld, dense_fma_count=%lld, other_fma_count=%lld", sp_fma_count, dense_fma_count,
@@ -880,8 +880,11 @@ void block_factor(L2Matrix *l2) {
     LOG_INFO("spgemm time: %lf ms. gemm time: %lf ms", spgemm_time * 1000.0, gemm_time * 1000.0);
 }
 
-void block_parallel_factor(L2Matrix *l2) {
+void block_parallel_factor(L2Matrix *l2, int cut) {
     LOG_INFO("分解开始");
     double factor_time = omp_get_wtime();
+    openblas_set_num_threads(1);
+    block_factor_right_looking_v0(l2, 0, l2->num_row_block-cut);
+    block_factor_right_looking_omp_v0(l2, l2->num_row_block - cut);
     LOG_INFO("分解 elapsed time: %lf ms", (omp_get_wtime() - factor_time) * 1000.0);
 }

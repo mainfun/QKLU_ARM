@@ -64,8 +64,8 @@ int main() {
                        l2->col_pointers, l2->row_indices, l2->block_count, l2->num_row_block);
     l2->diag_index_csc = get_diag_index_i(l2->col_pointers, l2->row_indices, l2->num_row_block);
     //-----------------------end l2 get csc end-------------------------
-    block_factor(l2);
-    // block_parallel_factor(l2);
+    // block_factor(l2);
+    block_parallel_factor(l2, (long)(n - info->cut_point) / 50);
     //初始化解向量b
     ELE_TYPE *b = (ELE_TYPE *) malloc(n * sizeof(ELE_TYPE));
     //    random_vector(b, n);
